@@ -99,6 +99,18 @@ namespace Shop_CSharp.Models
             }
         }
 
+
+        public bool ValidID(int ID)
+        {
+            foreach (Product item in Items)
+            {
+                if (ID == item.Id)
+                    return true;
+            }
+
+            return false;
+        }
+
         private List<Product> Items;
     }
 }
