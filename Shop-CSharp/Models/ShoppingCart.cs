@@ -13,11 +13,18 @@ namespace Shop_CSharp.Models
             Items = new List<Product>();
         }
 
-        public void AddToCart(Product product, int quantity)
+        public void AddToCart(int ID, int quantity, Inventory inventory)
         {
-            product.QuantityCart += quantity;
-            product.QuantityShelf -= quantity;
-            Items.Add(product);
+            foreach (Product item in inventory.Items)
+            {
+                if (ID == item.Id)
+                {
+                    item.QuantityCart += quantity;
+                    item.QuantityShelf -= quantity;
+                    Items.Add(item);
+                }
+            }
+
         }
 
         public void RemoveFromCart(int ID, int quantity)
@@ -49,9 +56,48 @@ namespace Shop_CSharp.Models
         {
             foreach (Product item in Items)
             {
-                Console.WriteLine($"[ID: {item.Id}]     Name: {item.Name}     Price: ${item.Price}     Quantity: {item.QuantityCart}");
+                Console.WriteLine($"[ID: {item.Id,-5}]     Name: {item.Name,-20}     Price: ${item.Price,-10}     Quantity: {item.QuantityCart,-5}");
             }
         }
+
+        public bool ValidQuantity(int ID, string quantityString)
+        {
+            Program program = new Program();
+
+            if (!program.checkValidInt(quantityString))
+            { return false; }
+
+            int quantity = int.Parse(quantityString);
+
+            foreach (Product item in Items)
+            {
+                if (ID == item.Id)
+                {
+                    if (quantity <= item.QuantityCart) { return true; } else { return false; }
+                }
+            }
+
+            return false;
+        }
+
+        public bool ValidID(string s)
+        {
+            Program program = new Program();
+            int Id = 0;
+
+            bool isInt = program.checkValidInt(s);
+            if (isInt) { Id = int.Parse(s); }
+            else { return false; }
+
+            foreach (Product item in Items)
+            {
+                if (Id == item.Id)
+                    return true;
+            }
+
+            return false;
+        }
+
 
 
         private List<Product> Items;

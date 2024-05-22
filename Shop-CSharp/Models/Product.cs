@@ -12,15 +12,10 @@ namespace Shop_CSharp.Models
         {
             Name = name;
             Description = description;
-            Price = price;
+            Price = Math.Round(price, 2);
             Id = ++LastId;
             QuantityShelf = quantity;
             QuantityCart = 0;
-        }
-
-        public override string ToString()
-        {
-            return $"[{Id}] {Name}     Description: {Description}     Price: ${Price}     Quantity: {QuantityShelf}";
         }
 
 

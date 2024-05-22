@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Shop_CSharp.Models
 {
@@ -57,7 +61,7 @@ namespace Shop_CSharp.Models
             {
                 if (ID == item.Id)
                 {
-                    item.Price = price;
+                    item.Price = Math.Round(price,2);
                 }
             }
         }
@@ -67,16 +71,8 @@ namespace Shop_CSharp.Models
             {
                 if (ID == item.Id)
                 {
-                    item.QuantityShelf = quantity;
+                    Console.WriteLine($"[ID: {item.Id,-5}]     Name: {item.Name,-20}     Price: ${item.Price,-10}     Quantity: {item.QuantityCart,-5}");
                 }
-            }
-        }
-
-        public void Print()
-        {
-            foreach (Product item in Items)
-            {
-                Console.WriteLine(item);
             }
         }
 
@@ -84,7 +80,7 @@ namespace Shop_CSharp.Models
         {
             foreach (Product item in Items)
             {
-                Console.WriteLine($"[{item.Id}] {item.Name}");
+                Console.WriteLine($"[ID: {item.Id, -5}] {item.Name,-20}");
             }
         }
 
@@ -94,23 +90,50 @@ namespace Shop_CSharp.Models
             {
                 Console.Write(
                     $"___________________________________________\n" +
-                    $"[ID: {item.Id}]     Name: {item.Name}     Price: ${item.Price}     Quantity: {item.QuantityShelf}\n" +
+                    $"[ID: {item.Id, -5}]     Name: {item.Name, -20}     Price: ${item.Price, -10}     Quantity: {item.QuantityShelf, -5}\n" +
                     $"Description: {item.Description}\n");
             }
         }
 
-
-        public bool ValidID(int ID)
+        //RETURNS TRUE IF STRING S CONTAINS THE ID OF AN EXISTING PRODUCT
+        public bool ValidID(string s)
         {
+            Program program = new Program();
+            int Id = 0;
+
+            bool isInt = program.checkValidInt(s);
+            if(isInt) { Id = int.Parse(s); }
+            else { return false; }
+
             foreach (Product item in Items)
             {
-                if (ID == item.Id)
+                if (Id == item.Id)
                     return true;
             }
 
             return false;
         }
 
-        private List<Product> Items;
+        public bool ValidQuantity(int ID, string quantityString)
+        {
+            Program program = new Program();
+            
+            if (!program.checkValidInt(quantityString)) 
+            { return false; }
+
+            int quantity = int.Parse(quantityString);
+
+            foreach (Product item in Items)
+            {
+                if(ID == item.Id)
+                {
+                    if (quantity <= item.QuantityShelf) { return true; } else {  return false; }
+                }
+            }
+
+            return false;
+        }
+
+        internal List<Product> Items;
     }
 }

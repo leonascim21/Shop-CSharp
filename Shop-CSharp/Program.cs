@@ -7,11 +7,13 @@ namespace Shop_CSharp
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome!");
-            ShoppingCart Cart = new ShoppingCart();
+            ShoppingCart cart = new ShoppingCart();
             Inventory inventory = new Inventory();
+            Program program = new Program();
 
             ////////////////////////////
             //FOR TESTING DELETE LATER//
@@ -65,7 +67,7 @@ namespace Shop_CSharp
             while (true)
             {
                 Console.Write(
-                    "1) Inventory Management\n" +
+                    "\n1) Inventory Management\n" +
                     "2) Shop\n" +
                     "3) Exit\n" +
                     "Select an option: ");
@@ -85,7 +87,7 @@ namespace Shop_CSharp
                     {
                         Selection = "0";
                         Console.Write(
-                            "1) Add Product\n" +
+                            "\n\n1) Add Product\n" +
                             "2) Remove Product\n" +
                             "3) Edit Product\n" +
                             "4) Show Inventory\n" +
@@ -98,7 +100,7 @@ namespace Shop_CSharp
                         if (Selection == "1")
                         {
                             //TAKE IN NAME OF PRODUCT
-                            Console.Write("Name: ");
+                            Console.Write("\nName: ");
                             string? name = Console.ReadLine();
                             if (name == null) { name = " "; }
 
@@ -110,45 +112,39 @@ namespace Shop_CSharp
                             //TAKE IN PRICE OF PRODUCT
                             Console.Write("Price: ");
                             string? priceString = Console.ReadLine();
-                            bool validPrice = false;
-                            double price = 0;
-                            //LOOP TO GUARANTEE PRICE IS VALID
-                            while (!validPrice)
+                            if (priceString == null) { priceString = " "; }
+                            //LOOP TO GUARANTEE VALID QUANTITY INPUT
+                            while (true)
                             {
-                                //IF PARSE FAILS, REQUEST NEW INPUT 
-                                while (!double.TryParse(priceString, out double num))
+                                bool validPrice = program.checkValidDouble(priceString);
+                                if (validPrice) { break; }
+                                else
                                 {
-                                    Console.Write("Invalid Price, Try Again: ");
+                                    Console.Write("Invalid Input. Try Again: ");
                                     priceString = Console.ReadLine();
+                                    if (priceString == null) { priceString = " "; }
                                 }
-                                //IF INPUT IS A DOUBLE CHECK IF GREATER THAN 0, IF NOT LOOP AGAIN
-                                price = double.Parse(priceString);
-                                if (price >= 0)
-                                { validPrice = true; }
-                                else { priceString = "A"; } //SET STRING TO NON INTEGER SO PROMPTS ANOTHER INPUT
                             }
+                            double price = double.Parse(priceString);
+
 
                             //TAKE IN QUANTITY OF PRODUCT
                             Console.Write("Quantity: ");
                             string? quantityString = Console.ReadLine();
-                            bool validQuantity = false;
-                            int quantity = 0;
-
-                            //LOOP TO GUARANTEE QUANTITY IS VALID
-                            while (!validQuantity)
+                            if (quantityString == null) { quantityString = " "; }
+                            //LOOP TO GUARANTEE VALID QUANTITY INPUT
+                            while (true)
                             {
-                                //IF PARSE FAILS, REQUEST NEW INPUT 
-                                while (!int.TryParse(quantityString, out int num))
+                                bool validQuantity = program.checkValidInt(quantityString);
+                                if (validQuantity) { break; }
+                                else
                                 {
-                                    Console.Write("Invalid Quantity, Try Again: ");
+                                    Console.Write("Invalid Input. Try Again: ");
                                     quantityString = Console.ReadLine();
+                                    if (quantityString == null) { quantityString = " "; }
                                 }
-                                //IF INPUT IS AN INTEGER CHECK IF GREATER THAN 0, IF NOT LOOP AGAIN
-                                quantity = int.Parse(quantityString);
-                                if (quantity >= 0)
-                                { validQuantity = true; }
-                                else { quantityString = "A"; } //SET STRING TO NON INTEGER SO PROMPTS ANOTHER INPUT
                             }
+                            int quantity = int.Parse(quantityString);
 
                             //ADD PRODUCT TO INVENTORY
                             inventory.AddItem(name, description, price, quantity);
@@ -158,42 +154,21 @@ namespace Shop_CSharp
                         //REMOVE PRODUCT
                         else if (Selection == "2")
                         {
-                            Console.WriteLine("Select product to be removed");
+                            Console.WriteLine("\nSelect product to be removed");
                             inventory.PrintNames();
                             Console.Write("Enter 'X' to cancel deletion.\n" +
                                 "ID of product to be deleted: ");
+                            string? idString = Console.ReadLine();
+                            if(idString == null) {  idString = " "; }
+                            if(idString=="X" || idString == "x") { continue; }
 
-                            bool validID = false, cancel = false;
+                            bool validID = program.checkValidInt(idString);
+
                             int Id = 0;
 
-                            //LOOP UNTIL USER ENTERS VALID ID OR CANCELS ACTION
-                            while (!validID)
-                            {
-                                string? idString = Console.ReadLine();
-                                //IF PARSE FAILS, REQUEST NEW INPUT
-                                while (!int.TryParse(idString, out int num))
-                                {
-                                    //CANCEL IF USER INPUTS X
-                                    if (idString == "X")
-                                    {
-                                        cancel = true;
-                                        break;
-                                    }
+                            if(validID) { Id = int.Parse(idString); }
 
-                                    Console.WriteLine("Invalid Input. ID must be an integer.");
-                                    Console.Write("ID of Product to be deleted:");
-                                    idString = Console.ReadLine();
-
-                                }
-
-                                //EXIT LOOP
-                                if (cancel)
-                                    break;
-
-                                Id = int.Parse(idString);
-                                validID = true;
-                            }
-
+                            //ID STARTS AT 1 SO IT WILL RETURN FALSE IF !VALIDID
                             bool success = inventory.RemoveItem(Id);
 
                             if (success) { Console.WriteLine("Product Removed!"); }
@@ -203,49 +178,39 @@ namespace Shop_CSharp
                         //EDIT PRODUCT
                         else if (Selection == "3")
                         {
-                            inventory.Print();
-                            Console.Write("ID of Product to be edited: ");
+                            inventory.PrintCatalog();
+                            Console.Write("\nEnter 'X' to cancel." +
+                                "ID of Product to be edited: ");
                             string? idString = Console.ReadLine();
+                            //EXIT IF USER ENTER X
+                            if(idString == "X" || idString == "x") { continue; }
+                            if(idString == null) { idString = " ";  }
 
-                            bool cancel = false;
-                            int Id = 0;
+
 
                             //LOOP UNTIL USER ENTERS VALID ID OR CANCELS ACTION
-                            while (!inventory.ValidID(Id))
+                            while (!inventory.ValidID(idString))
                             {
-                                //IF PARSE FAILS, REQUEST NEW INPUT
-                                while (!int.TryParse(idString, out int num))
-                                {
-                                    //CANCEL IF USER INPUTS X
-                                    if (idString == "X")
-                                    {
-                                        cancel = true;
-                                        break;
-                                    }
+                                Console.Write("Invalid Input. Try Again: ");
+                                idString = Console.ReadLine();
+                                if (idString == null) { idString = " "; }
 
-                                    Console.WriteLine("Invalid Input. Try Again.");
-                                    Console.Write("ID of Product to be edited: ");
-                                    idString = Console.ReadLine();
+                                if (idString == "X" || idString == "x") { break; }
 
-                                }
-
-                                //EXIT LOOP
-                                if (cancel)
-                                    break;
-
-                                Id = int.Parse(idString);
-                                idString = "A";
                             }
+                            if(idString == "X" || idString == "x") { continue; }
+
+                            int Id = int.Parse(idString);
 
 
-                            while (true)
+                            while (idString != "x" || idString != "X")
                             { 
                                 Console.Write(
-                                    "1) Edit Name\n" +
+                                    "\n1) Edit Name\n" +
                                     "2) Edit Description\n" +
                                     "3) Edit Price\n" +
                                     "4) Edit Quantity\n" +
-                                    "5) Go Back" +
+                                    "5) Go Back\n" +
                                     "Select an option: ");
 
                                 Selection = Console.ReadLine();
@@ -258,7 +223,7 @@ namespace Shop_CSharp
 
                                 if (Selection == "1")
                                 {
-                                    Console.Write("Enter the new name: ");
+                                    Console.Write("\nEnter the new name: ");
                                     string? newName = Console.ReadLine();
                                     if (newName == null) { newName = " "; }
 
@@ -266,7 +231,7 @@ namespace Shop_CSharp
                                 }
                                 else if (Selection == "2")
                                 {
-                                    Console.Write("Enter the new description: ");
+                                    Console.Write("\nEnter the new description: ");
                                     string? newDescription = Console.ReadLine();
                                     if (newDescription == null) { newDescription = " "; }
 
@@ -275,51 +240,48 @@ namespace Shop_CSharp
                                 else if (Selection == "3")
                                 {
                                     //TAKE IN PRICE OF PRODUCT
-                                    Console.Write("Enter the new price: ");
+                                    Console.Write("\nEnter the new price: ");
                                     string? priceString = Console.ReadLine();
-                                    bool validPrice = false;
-                                    double newPrice = 0;
-                                    //LOOP TO GUARANTEE PRICE IS VALID
-                                    while (!validPrice)
+                                    if (priceString == null) { priceString = " "; }
+                                    
+                                    //LOOP TO GUARANTEE VALID QUANTITY INPUT
+                                    while (true)
                                     {
-                                        //IF PARSE FAILS, REQUEST NEW INPUT 
-                                        while (!double.TryParse(priceString, out double num))
+                                        bool validPrice = program.checkValidDouble(priceString);
+                                        if (validPrice) { break; }
+                                        else
                                         {
-                                            Console.Write("Invalid Price, Try Again: ");
+                                            Console.Write("Invalid Input. Try Again: ");
                                             priceString = Console.ReadLine();
+                                            if (priceString == null) { priceString = " "; }
                                         }
-                                        //IF INPUT IS A DOUBLE CHECK IF GREATER THAN 0, IF NOT LOOP AGAIN
-                                        newPrice = double.Parse(priceString);
-                                        if (newPrice >= 0)
-                                        { validPrice = true; }
-                                        else { priceString = "A"; } //SET STRING TO NON INTEGER SO PROMPTS ANOTHER INPUT
                                     }
 
+                                    double newPrice = double.Parse(priceString);
                                     inventory.EditPrice(Id, newPrice);
                                 }
+
                                 else if (Selection == "4")
                                 {
                                     //TAKE IN QUANTITY OF PRODUCT
-                                    Console.Write("Enter the new quantity: ");
+                                    Console.Write("\nEnter the new quantity: ");
                                     string? quantityString = Console.ReadLine();
-                                    bool validQuantity = false;
-                                    int newQuantity = 0;
+                                    if (quantityString == null) { quantityString = " "; }
 
-                                    //LOOP TO GUARANTEE QUANTITY IS VALID
-                                    while (!validQuantity)
+                                    //LOOP TO GUARANTEE VALID QUANTITY INPUT
+                                    while (true)
                                     {
-                                        //IF PARSE FAILS, REQUEST NEW INPUT 
-                                        while (!int.TryParse(quantityString, out int num))
+                                        bool validQuantity = program.checkValidInt(quantityString);
+                                        if (validQuantity) { break; }
+                                        else
                                         {
-                                            Console.Write("Invalid Quantity, Try Again: ");
+                                            Console.Write("Invalid Input. Try Again: ");
                                             quantityString = Console.ReadLine();
+                                            if (quantityString == null) { quantityString = " "; }
                                         }
-                                        //IF INPUT IS AN INTEGER CHECK IF GREATER THAN 0, IF NOT LOOP AGAIN
-                                        newQuantity = int.Parse(quantityString);
-                                        if (newQuantity >= 0)
-                                        { validQuantity = true; }
-                                        else { quantityString = "A"; } //SET STRING TO NON INTEGER SO PROMPTS ANOTHER INPUT
                                     }
+
+                                    int newQuantity = int.Parse(quantityString);
 
                                     inventory.EditQuantity(Id, newQuantity);
                                 }
@@ -335,7 +297,8 @@ namespace Shop_CSharp
                         //SHOW INVENTORY
                         else if (Selection == "4")
                         {
-                            inventory.Print();
+                            Console.WriteLine("\n");
+                            inventory.PrintCatalog();
                         }
 
                         //EXIT
@@ -351,12 +314,12 @@ namespace Shop_CSharp
 
                 if (Selection == "2")
                 {
-                    Console.WriteLine("Welcome To The Shop!");
+                    Console.WriteLine("\nWelcome To The Shop!");
 
                     while (true)
                     {
                         Console.Write(
-                            "1) Add Product to Shopping Cart\n" +
+                            "\n1) Add Product to Shopping Cart\n" +
                             "2) Remove Product from Shopping Cart\n" +
                             "3) Show Shopping Cart\n" +
                             "4) Checkout\n" +
@@ -368,20 +331,106 @@ namespace Shop_CSharp
                         {
                             inventory.PrintCatalog();
 
+                            Console.Write("\nEnter ID of product to add to cart: ");
+                            string? stringID = Console.ReadLine();
+                            if (stringID == null) { stringID = " "; }
+
+                            while (!inventory.ValidID(stringID))
+                            {
+                                Console.Write("Invalid Input. Try Again: ");
+                                stringID = Console.ReadLine();
+                                if (stringID == null) { stringID = " "; }
+                            }
+
+                            int ID = int.Parse(stringID);
+
+                            Console.Write("How many would you like to add to cart?: ");
+                            string? quantityString = Console.ReadLine();
+                            if(quantityString == null) {  quantityString = " "; }
+
+                            while (!inventory.ValidQuantity(ID, quantityString))
+                            {
+                                Console.Write("Invalid Input. Try Again: ");
+                                quantityString = Console.ReadLine();
+                                if (quantityString == null) { quantityString = " "; }
+                            }
+
+                            int quantity = int.Parse(quantityString);
+
+                            cart.AddToCart(ID, quantity, inventory);
+
                         }
 
                         else if (Selection == "2")
                         {
+                            cart.PrintCart();
+
+                            Console.Write("\nEnter ID of product to remove from the cart: ");
+                            string? stringID = Console.ReadLine();
+                            if (stringID == null) { stringID = " "; }
+
+                            while (!cart.ValidID(stringID))
+                            {
+                                Console.Write("Invalid Input. Try Again: ");
+                                stringID = Console.ReadLine();
+                                if (stringID == null) { stringID = " "; }
+                            }
+
+                            int ID = int.Parse(stringID);
+
+                            Console.Write("How many would you like to remove from the cart?: ");
+                            string? quantityString = Console.ReadLine();
+                            if (quantityString == null) { quantityString = " "; }
+
+                            while (!cart.ValidQuantity(ID, quantityString))
+                            {
+                                Console.Write("Invalid Input. Try Again: ");
+                                quantityString = Console.ReadLine();
+                                if (quantityString == null) { quantityString = " "; }
+                            }
+
+                            int quantity = int.Parse(quantityString);
+
+                            cart.RemoveFromCart(ID, quantity);
 
                         }
 
                         else if (Selection == "3")
                         {
-
+                            Console.WriteLine("\n");
+                            cart.PrintCart();
+                            Console.WriteLine($"Total Price Before Tax: ${Math.Round(cart.CalculateTotal(), 2)}");
                         }
 
                         else if (Selection == "4")
                         {
+                            Console.WriteLine("\n");
+                            cart.PrintCart();
+                            Console.WriteLine($"Total Price with Tax: ${Math.Round(cart.CalculateTotal() * 1.07, 2)}");
+
+                            Console.Write("\nEnter 'X' to return to shop." +
+                                "Enter 'Y' to checkout: ");
+                            
+                            string? input = Console.ReadLine();
+                            if (input == null) { input = " "; }
+
+                            while (input != "X" && input != "Y" && input != "x" && input != "y")
+                            {
+                                Console.Write("Invalid Input. Try Again:");
+                                input = Console.ReadLine();
+                                if (input == null) { input = " "; }
+                            }
+
+                            if(input == "X" || input == "x")
+                            { continue; }
+
+                            else
+                            {
+                                Console.WriteLine("\nCheckout Successful\n" +
+                                    $"Total Price: ${Math.Round(cart.CalculateTotal() * 1.07, 2)}");
+
+                                cart = new ShoppingCart();
+                            }
 
                         }
 
@@ -399,6 +448,30 @@ namespace Shop_CSharp
                 { break; }
 
             }
+        }
+
+        //RETURN TRUE IF STRING IS AN INT >= 0
+        public bool checkValidInt(string s)
+        {
+            if (!int.TryParse(s, out int num)) { return false; }
+
+            int i = int.Parse(s);
+
+            if (i < 0) { return false; }
+
+            return true;
+        }
+
+        //RETURN TRUE IF STRING IS AN INT >= 0
+        public bool checkValidDouble(string s)
+        {
+            if (!double.TryParse(s, out double num)) { return false; }
+
+            double i = double.Parse(s);
+
+            if (i < 0) { return false; }
+
+            return true;
         }
     }
 }
