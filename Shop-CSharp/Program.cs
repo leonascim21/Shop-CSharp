@@ -15,54 +15,9 @@ namespace Shop_CSharp
             Inventory inventory = new Inventory();
             Program program = new Program();
 
-            ////////////////////////////
-            //FOR TESTING DELETE LATER//
-            ////////////////////////////
-            inventory.AddItem("Apple", "A fresh red apple", 0.99, 50);
-            inventory.AddItem("Banana", "A ripe yellow banana", 0.59, 30);
-            inventory.AddItem("Orange", "A juicy orange", 1.29, 20);
-            inventory.AddItem("Grapes", "A bunch of seedless grapes", 2.99, 15);
-            inventory.AddItem("Strawberry", "A box of fresh strawberries", 3.49, 25);
-            inventory.AddItem("Blueberry", "A pint of blueberries", 4.99, 10);
-            inventory.AddItem("Pineapple", "A tropical pineapple", 2.99, 5);
-            inventory.AddItem("Mango", "A ripe mango", 1.49, 12);
-            inventory.AddItem("Watermelon", "A large watermelon", 5.99, 8);
-            inventory.AddItem("Peach", "A sweet peach", 1.79, 20);
-            inventory.AddItem("Plum", "A juicy plum", 0.99, 18);
-            inventory.AddItem("Kiwi", "A tangy kiwi fruit", 0.69, 25);
-            inventory.AddItem("Pear", "A crisp pear", 1.09, 30);
-            inventory.AddItem("Avocado", "A creamy avocado", 1.99, 12);
-            inventory.AddItem("Cherry", "A bag of cherries", 3.99, 8);
-            inventory.AddItem("Pomegranate", "A pomegranate fruit", 2.49, 5);
-            inventory.AddItem("Lemon", "A fresh lemon", 0.49, 40);
-            inventory.AddItem("Lime", "A tangy lime", 0.39, 35);
-            inventory.AddItem("Coconut", "A fresh coconut", 2.79, 7);
-            inventory.AddItem("Papaya", "A ripe papaya", 3.99, 6);
-            inventory.AddItem("Dragon Fruit", "An exotic dragon fruit", 4.49, 3);
-            inventory.AddItem("Passion Fruit", "A tropical passion fruit", 2.99, 10);
-            inventory.AddItem("Cantaloupe", "A juicy cantaloupe", 3.49, 9);
-            inventory.AddItem("Honeydew", "A sweet honeydew melon", 3.89, 11);
-            inventory.AddItem("Blackberry", "A box of blackberries", 4.29, 15);
-            inventory.AddItem("Raspberry", "A pint of raspberries", 4.99, 10);
-            inventory.AddItem("Cranberry", "A bag of cranberries", 3.69, 8);
-            inventory.AddItem("Fig", "A pack of figs", 2.89, 12);
-            inventory.AddItem("Date", "A box of dates", 5.99, 7);
-            inventory.AddItem("Apricot", "A fresh apricot", 1.49, 18);
-            inventory.AddItem("Lychee", "A bunch of lychees", 3.29, 20);
-            inventory.AddItem("Guava", "A tropical guava", 2.59, 10);
-            inventory.AddItem("Star Fruit", "An exotic star fruit", 3.99, 5);
-            inventory.AddItem("Persimmon", "A ripe persimmon", 2.29, 8);
-            inventory.AddItem("Mulberry", "A box of mulberries", 4.49, 7);
-            inventory.AddItem("Gooseberry", "A pint of gooseberries", 3.89, 9);
-            inventory.AddItem("Tangerine", "A sweet tangerine", 1.29, 25);
-            inventory.AddItem("Clementine", "A box of clementines", 4.99, 15);
-            inventory.AddItem("Nectarine", "A juicy nectarine", 1.79, 20);
-            inventory.AddItem("Pineberries", "A box of pineberries", 5.49, 5);
-            /////////////////////////////////////////////////////////////////////
 
-
-
-
+            inventory.AddItem("Jorge", "Engenheiro de software", 9.99, 15);
+            inventory.AddItem("Betina", "Marketeira", 15.99, 12);
 
             while (true)
             {
@@ -100,7 +55,7 @@ namespace Shop_CSharp
                         if (Selection == "1")
                         {
                             //TAKE IN NAME OF PRODUCT
-                            Console.Write("\nName: ");
+                            Console.Write("\nProduct Name: ");
                             string? name = Console.ReadLine();
                             if (name == null) { name = " "; }
 
@@ -116,8 +71,7 @@ namespace Shop_CSharp
                             //LOOP TO GUARANTEE VALID QUANTITY INPUT
                             while (true)
                             {
-                                bool validPrice = program.checkValidDouble(priceString);
-                                if (validPrice) { break; }
+                                if (program.checkValidDouble(priceString)) { break; }
                                 else
                                 {
                                     Console.Write("Invalid Input. Try Again: ");
@@ -135,8 +89,7 @@ namespace Shop_CSharp
                             //LOOP TO GUARANTEE VALID QUANTITY INPUT
                             while (true)
                             {
-                                bool validQuantity = program.checkValidInt(quantityString);
-                                if (validQuantity) { break; }
+                                if (program.checkValidInt(quantityString)) { break; }
                                 else
                                 {
                                     Console.Write("Invalid Input. Try Again: ");
@@ -155,7 +108,7 @@ namespace Shop_CSharp
                         else if (Selection == "2")
                         {
                             Console.WriteLine("\nSelect product to be removed");
-                            inventory.PrintNames();
+                            inventory.PrintCatalog();
                             Console.Write("Enter 'X' to cancel deletion.\n" +
                                 "ID of product to be deleted: ");
                             string? idString = Console.ReadLine();
@@ -179,7 +132,7 @@ namespace Shop_CSharp
                         else if (Selection == "3")
                         {
                             inventory.PrintCatalog();
-                            Console.Write("\nEnter 'X' to cancel." +
+                            Console.Write("\nEnter 'X' to cancel.\n" +
                                 "ID of Product to be edited: ");
                             string? idString = Console.ReadLine();
                             //EXIT IF USER ENTER X
@@ -247,8 +200,7 @@ namespace Shop_CSharp
                                     //LOOP TO GUARANTEE VALID QUANTITY INPUT
                                     while (true)
                                     {
-                                        bool validPrice = program.checkValidDouble(priceString);
-                                        if (validPrice) { break; }
+                                        if (program.checkValidDouble(priceString)) { break; }
                                         else
                                         {
                                             Console.Write("Invalid Input. Try Again: ");
@@ -271,8 +223,7 @@ namespace Shop_CSharp
                                     //LOOP TO GUARANTEE VALID QUANTITY INPUT
                                     while (true)
                                     {
-                                        bool validQuantity = program.checkValidInt(quantityString);
-                                        if (validQuantity) { break; }
+                                        if (program.checkValidInt(quantityString)) { break; }
                                         else
                                         {
                                             Console.Write("Invalid Input. Try Again: ");

@@ -71,18 +71,11 @@ namespace Shop_CSharp.Models
             {
                 if (ID == item.Id)
                 {
-                    Console.WriteLine($"[ID: {item.Id,-5}]     Name: {item.Name,-20}     Price: ${item.Price,-10}     Quantity: {item.QuantityCart,-5}");
+                    item.QuantityShelf = quantity;
                 }
             }
         }
 
-        public void PrintNames()
-        {
-            foreach (Product item in Items)
-            {
-                Console.WriteLine($"[ID: {item.Id, -5}] {item.Name,-20}");
-            }
-        }
 
         public void PrintCatalog()
         {
@@ -90,7 +83,7 @@ namespace Shop_CSharp.Models
             {
                 Console.Write(
                     $"___________________________________________\n" +
-                    $"[ID: {item.Id, -5}]     Name: {item.Name, -20}     Price: ${item.Price, -10}     Quantity: {item.QuantityShelf, -5}\n" +
+                    $"[ID: {item.Id, -4}]     Name: {item.Name, -20}     Price: ${item.Price, -10}     Quantity: {item.QuantityShelf, -5}\n" +
                     $"Description: {item.Description}\n");
             }
         }

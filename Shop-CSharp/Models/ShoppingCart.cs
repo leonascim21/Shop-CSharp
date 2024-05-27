@@ -15,6 +15,19 @@ namespace Shop_CSharp.Models
 
         public void AddToCart(int ID, int quantity, Inventory inventory)
         {
+
+            foreach(Product item in Items)
+            {
+                if (ID == item.Id)
+                {
+                    item.QuantityCart += quantity;
+                    item.QuantityShelf -= quantity;
+                    return;
+                }
+            }
+
+
+
             foreach (Product item in inventory.Items)
             {
                 if (ID == item.Id)
@@ -29,6 +42,7 @@ namespace Shop_CSharp.Models
 
         public void RemoveFromCart(int ID, int quantity)
         {
+            Product? deletionObject = null;
 
             foreach (Product item in Items)
             {
@@ -37,9 +51,11 @@ namespace Shop_CSharp.Models
                     if (quantity > item.QuantityCart) { quantity = item.QuantityCart; }
                     item.QuantityCart -= quantity;
                     item.QuantityShelf += quantity;
-                    if (item.QuantityCart == 0) { Items.Remove(item); }
+                    if (item.QuantityCart == 0) { deletionObject = item; }
                 }
+                
             }
+            if ((deletionObject != null) && deletionObject.QuantityCart == 0) { Items.Remove(deletionObject); }
         }
 
         public double CalculateTotal()
@@ -56,7 +72,7 @@ namespace Shop_CSharp.Models
         {
             foreach (Product item in Items)
             {
-                Console.WriteLine($"[ID: {item.Id,-5}]     Name: {item.Name,-20}     Price: ${item.Price,-10}     Quantity: {item.QuantityCart,-5}");
+                Console.WriteLine($"[ID: {item.Id, -4}]     Name: {item.Name,-20}     Price: ${item.Price,-10}     Quantity: {item.QuantityCart,-5}");
             }
         }
 
