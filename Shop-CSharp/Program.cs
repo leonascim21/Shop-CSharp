@@ -16,8 +16,6 @@ namespace Shop_CSharp
             Program program = new Program();
 
 
-            inventory.AddItem("Jorge", "Engenheiro de software", 9.99, 15);
-            inventory.AddItem("Betina", "Marketeira", 15.99, 12);
 
             while (true)
             {
