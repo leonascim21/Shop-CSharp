@@ -9,19 +9,15 @@
     Title="Shop.MAUI">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
     <ShellContent
-        Title="Inventory"
         ContentTemplate="{DataTemplate views:InventoryView}"
         Route="InventoryPage" />
     <ShellContent
-        Title="Shop"
         ContentTemplate="{DataTemplate views:ShopView}"
         Route="ShopPage" />
     <ShellContent
-        Title="Add Product"
         ContentTemplate="{DataTemplate views:AddProductView}"
         Route="AddProductPage" />
 

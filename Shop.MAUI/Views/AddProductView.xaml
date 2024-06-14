@@ -1,17 +1,73 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Shop.MAUI.Views.AddProductView"
-             Title="AddProductView">
-    <VerticalStackLayout>
+             x:Class="Shop.MAUI.Views.AddProductView">
 
-        <Entry Placeholder="Name"/>
-        <Entry Placeholder="Description"/>
-        <Entry Placeholder="Price"/>
-        <Entry Placeholder="Quantity"/>
 
-        <Button Text="Add" Clicked="AddProduct"/>
-        <Button Text="Back" Clicked="GoToInventoryPage"/>
+    <VerticalStackLayout BackgroundColor="#F5F2B4"  
+        Padding="100"
+        Spacing="20">
+
+        <Label Text="Add Product"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                FontAttributes="Bold"
+                FontSize="30"
+                TextColor="#605F4F"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Text="Name" 
+                   FontAttributes="Bold"
+                    TextColor="#605F4F" 
+                   VerticalOptions="Center"/>
+            <Entry Grid.Row="0" Grid.Column="1" BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+
+            <Label Grid.Row="1" Grid.Column="0" 
+                   Text="Description"
+                   FontAttributes="Bold"
+                    TextColor="#605F4F" 
+                   VerticalOptions="Center"/>
+            <Entry  Grid.Row="1" Grid.Column="1" BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+
+            <Label Grid.Row="2" Grid.Column="0" 
+                   Text="Price" 
+                   FontAttributes="Bold"
+                   TextColor="#605F4F" 
+                   VerticalOptions="Center"/>
+            <Entry Grid.Row="2" Grid.Column="1" BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+
+            <Label Grid.Row="3" Grid.Column="0" 
+                   Text="Quantity" 
+                   FontAttributes="Bold"
+                    TextColor="#605F4F" 
+                   VerticalOptions="Center"/>
+            <Entry Grid.Row="3" Grid.Column="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
+            
+        </Grid>
+
+        <Button Text="Add" 
+                Clicked="AddProduct" 
+                MaximumWidthRequest="200" 
+                BackgroundColor="#69C7B8"
+                TextColor="#605F4F"/>
+        
+        <Button Text="Back" 
+                Clicked="GoToInventoryPage" 
+                MaximumWidthRequest="200" 
+                BackgroundColor="#69C7B8"
+                TextColor="#605F4F"/>
 
     </VerticalStackLayout>
 </ContentPage>
