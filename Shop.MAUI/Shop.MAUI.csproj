@@ -72,6 +72,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Shop.Library\Shop.Library.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\AddProductView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

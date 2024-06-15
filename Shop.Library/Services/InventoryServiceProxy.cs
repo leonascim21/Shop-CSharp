@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Library.Services
 {
-    internal class InventoryServiceProxy
+    public class InventoryServiceProxy
     {
         private static InventoryServiceProxy? instance;
         private static object instanceLock = new object();
@@ -55,7 +55,11 @@ namespace Shop.Library.Services
 
         private InventoryServiceProxy()
         {
-            products = new List<Product>();
+            products = new List<Product>{
+                new Product{Id = 1,Name = "Product 1", Price=1.75M}
+                , new Product{Id = 2,Name = "Product 2", Price=10M}
+                , new Product{Id = 3,Name = "Product 3", Price=137.11M}
+            }; ;
         }
 
         public static InventoryServiceProxy Current

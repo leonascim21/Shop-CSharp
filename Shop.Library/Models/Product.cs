@@ -8,21 +8,24 @@ namespace Shop_CSharp.Models
 {
     public class Product
     {
-        public Product(string name, string description, double price, int quantity)
+
+        public Product() { }
+
+        public Product(string name, string description, decimal price, int quantity)
         {
             Name = name;
             Description = description;
-            Price = Math.Round(price, 2);
+            Price = price;
             Id = 0;
             Quantity = quantity;
         }
 
 
-        internal string? Name { get; set; }
-        internal string? Description { get; set; }
-        internal double Price { get; set; }
-        internal int Id { get; set; }
-        internal int Quantity { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public decimal Price { get; set; }
+        public int Id { get; set; }
+        public int Quantity { get; set; }
 
     }
 }
