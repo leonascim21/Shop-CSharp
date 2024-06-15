@@ -4,7 +4,7 @@
              x:Class="Shop.MAUI.MainPage">
 
     <ScrollView>
-        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  BackgroundColor="#F5F2B4">
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <VerticalStackLayout
                 VerticalOptions="Center"
                 Padding="30,0"
@@ -14,21 +14,21 @@
                        VerticalOptions="Center"
                        HorizontalOptions="Center"
                        FontAttributes="Bold"
-                       FontSize="30"
-                       TextColor="#605F4F"/>
+                       FontSize="30"/>
 
                 <Button Text="Shop" 
+                        Clicked="GoToShopPage"
                         MaximumWidthRequest="600"
                         BackgroundColor="#69C7B8"
-                        TextColor="#605F4F"/>
-            
+                        TextColor="Black"/>
+
                 <Button Text="Manage Inventory" 
                         Clicked="GoToInventoryPage"  
                         MaximumWidthRequest="600" 
                         BackgroundColor="#69C7B8"
-                        TextColor="#605F4F"/>
-                
-                </VerticalStackLayout>
+                        TextColor="Black"/>
+
+            </VerticalStackLayout>
             </Grid>
     </ScrollView>
 

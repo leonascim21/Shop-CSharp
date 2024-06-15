@@ -10,6 +10,10 @@
         {
             Shell.Current.GoToAsync("//InventoryPage");
         }
+        private void GoToShopPage(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//ShopPage");
+        }
     }
 
 }

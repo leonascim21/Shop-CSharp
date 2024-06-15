@@ -44,6 +44,25 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
+        public string QuantityAsString
+        {
+            set
+            {
+                if (Model == null)
+                {
+                    return;
+                }
+                if (int.TryParse(value, out var quantity))
+                {
+                    Model.Quantity = quantity;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
 
         public AddProductViewModel() 
         {
@@ -61,7 +80,15 @@ namespace Shop.MAUI.ViewModels
         public void Add()
         {
             if (Model != null)
-            InventoryServiceProxy.Current.AddOrUpdate(Model);
+            {
+                InventoryServiceProxy.Current.AddOrUpdate(Model);
+                ResetFields();
+            }
+        }
+
+        public void ResetFields()
+        {
+            Model = new Product();
         }
     }
 }

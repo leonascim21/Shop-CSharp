@@ -4,7 +4,7 @@
              x:Class="Shop.MAUI.Views.AddProductView">
 
 
-    <VerticalStackLayout BackgroundColor="#F5F2B4"  
+    <VerticalStackLayout
         Padding="100"
         Spacing="20">
 
@@ -12,8 +12,7 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 FontAttributes="Bold"
-                FontSize="30"
-                TextColor="#605F4F"/>
+                FontSize="30"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -28,38 +27,39 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
+                   Padding="5"
                    Text="Name" 
                    FontAttributes="Bold"
-                    TextColor="#605F4F" 
                    VerticalOptions="Center"/>
             <Entry Text="{Binding Model.Name}"
                 Grid.Row="0" Grid.Column="1" 
-                BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
+                BackgroundColor="White" 
+                HorizontalOptions="FillAndExpand"/>
 
             <Label Grid.Row="1" Grid.Column="0" 
+                   Padding="5"
                    Text="Description"
                    FontAttributes="Bold"
-                    TextColor="#605F4F" 
                    VerticalOptions="Center"/>
             <Entry Text="{Binding Model.Description}" 
                 Grid.Row="1" Grid.Column="1" 
                    BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
 
             <Label Grid.Row="2" Grid.Column="0" 
+                   Padding="5"
                    Text="Price" 
                    FontAttributes="Bold"
-                   TextColor="#605F4F" 
                    VerticalOptions="Center"/>
             <Entry Text="{Binding PriceAsString}" 
                    Grid.Row="2" Grid.Column="1" 
                    BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
             
             <Label Grid.Row="3" Grid.Column="0" 
+                   Padding="5"
                    Text="Quantity" 
                    FontAttributes="Bold"
-                    TextColor="#605F4F" 
                    VerticalOptions="Center"/>
-            <Entry Text="{Binding Model.Quantity}"
+            <Entry Text="{Binding QuantityAsString}"
                 Grid.Row="3" Grid.Column="1" 
                 BackgroundColor="White" HorizontalOptions="FillAndExpand" />
         </Grid>
@@ -68,13 +68,13 @@
                 Clicked="AddProduct" 
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
-                TextColor="#605F4F"/>
+                TextColor="Black"/>
         
         <Button Text="Back" 
                 Clicked="GoToInventoryPage" 
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
-                TextColor="#605F4F"/>
+                TextColor="Black"/>
 
     </VerticalStackLayout>
 </ContentPage>

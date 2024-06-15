@@ -23,4 +23,16 @@ public partial class InventoryView : ContentPage
     {
         (BindingContext as InventoryViewModel)?.Refresh();
     }
+
+    private void DeleteProduct(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        AddProductViewModel? product = button?.CommandParameter as AddProductViewModel;
+        if (product != null)
+        {
+            (BindingContext as InventoryViewModel)?.Remove(product);
+        }
+        (BindingContext as InventoryViewModel)?.Refresh();
+    }
+
 }

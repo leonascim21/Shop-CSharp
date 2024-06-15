@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Shop.Library.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Shop.MAUI.Views;
-using Shop_CSharp.Models;
-using Shop.Library.Services;
 
 namespace Shop.MAUI.ViewModels
 {
-    internal class InventoryViewModel : INotifyPropertyChanged
+    class ShopViewModel : INotifyPropertyChanged
     {
         public List<AddProductViewModel> Products
         {
@@ -28,11 +26,6 @@ namespace Shop.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Products));
         }
 
-        public void Remove(AddProductViewModel product)
-        {
-            InventoryServiceProxy.Current.Remove(product.Model ?? new Product());
-            Refresh();
-        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

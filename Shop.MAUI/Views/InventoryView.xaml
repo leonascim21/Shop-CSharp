@@ -4,32 +4,79 @@
              x:Class="Shop.MAUI.Views.InventoryView"
              Title="Inventory"
              NavigatedTo="ContentPage_NavigatedTo">
-    <VerticalStackLayout>
-        <ListView
-            ItemsSource="{Binding Products}"
-            >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="5*"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10" BackgroundColor="White">
+            <HorizontalStackLayout Spacing="10" Padding="10" HorizontalOptions="Center">
+                <ImageButton Source="home.png"
+                        Clicked="GoToHomePage" 
+                        CornerRadius="10"
+                        Padding="6"
+                        BackgroundColor="#69C7B8"
+                        MaximumHeightRequest="50"
+                        MaximumWidthRequest="50"/>
+                <ImageButton Source="plus.png" 
+                    Clicked="GoToAddProductPage"
+                    CornerRadius="10"
+                    Padding="6"
+                    BackgroundColor="#69C7B8"
+                    MaximumHeightRequest="50"
+                    MaximumWidthRequest="50"/>
+                <BoxView BackgroundColor="White" 
+                    WidthRequest="50"/>
+                <Entry Placeholder="Search Inventory" WidthRequest="400" HeightRequest="52"/>
+                <ImageButton Source="search.png" 
+                    CornerRadius="10"
+                    Padding="6"
+                    BackgroundColor="#69C7B8"
+                    MaximumHeightRequest="50"
+                    MaximumWidthRequest="50"
+                    HorizontalOptions="End"/>
+            </HorizontalStackLayout>
+            <CollectionView ItemsSource="{Binding Products}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                        Span="5" 
+                                        HorizontalItemSpacing="10"
+                                        VerticalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Black" BackgroundColor="LightGray" CornerRadius="10" Margin="10" Padding="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="{Binding Model.Id}" FontAttributes="Bold"/>
+                                <Label Grid.Row="1" Text="{Binding Model.Name}" />
+                                <Label Grid.Row="2" Text="{Binding Model.Description}" />
+                                <Label Grid.Row="3" Text="{Binding Model.Price}" />
+                                <Label Grid.Row="4" Text="{Binding Model.Quantity}" />
 
-                            <Label Grid.Column="0" Text="{Binding Model.Id}"/>
-                            <Label Grid.Column="1" Text="{Binding Model.Price}"/>
-                            <Label Grid.Column="2" Text="{Binding Model.Name}"/>
-                            <Label Grid.Column="3" Text="{Binding Model.Quantity}"/>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="Add Product" Clicked="GoToAddProductPage"/>
-        <Button Text="Home" Clicked="GoToHomePage"/>
-        
-    </VerticalStackLayout>
+                                <StackLayout  Spacing="10" Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="End">
+                                    <ImageButton Source="pencil.png"
+                                            CornerRadius="10"
+                                            Padding="6"
+                                            MaximumHeightRequest="45"
+                                            MaximumWidthRequest="45"     
+                                            BackgroundColor="#69C7B8"/>
+                                    <ImageButton Source="trash.png"
+                                            Clicked="DeleteProduct"
+                                            CommandParameter="{Binding .}"
+                                            MaximumHeightRequest="45"
+                                            MaximumWidthRequest="45"
+                                            CornerRadius="10"
+                                            Padding="6"
+                                            BackgroundColor="#69C7B8"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
