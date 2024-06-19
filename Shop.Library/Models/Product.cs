@@ -27,17 +27,6 @@ namespace Shop_CSharp.Models
         public decimal Price { get; set; }
         public int Id { get; set; }
         public int Quantity { get; set; }
-        public List<int> QuantityOptions 
-        { 
-            get 
-            {  if (this.Quantity < 50)
-                    return Enumerable.Range(1, this.Quantity).ToList();
-                else
-                    return Enumerable.Range(1,50).ToList(); 
-            }
-        }
-
-        public int SelectedQuantity { get; set; } = 1;
 
     }
 }

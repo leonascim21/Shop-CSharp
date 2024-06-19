@@ -37,10 +37,34 @@ namespace Shop.MAUI.ViewModels
                 Model = new Product();
         }
 
-        
-        public void AddToCart(ShopViewModel product)
+        public List<int> QuantityOptions
         {
-            ShoppingCartServiceProxy.Current.AddToCart(product.Model ?? new Product());
+            get
+            {
+                if (Model?.Quantity < 50)
+                    return Enumerable.Range(1, Model.Quantity).ToList();
+                else
+                    return Enumerable.Range(1, 50).ToList();
+            }
+        }
+
+        private int selectedQuantity;
+        public int SelectedQuantity
+        {
+            get { return selectedQuantity; }
+            set
+            {
+                if (selectedQuantity != value)
+                {
+                    selectedQuantity = value;
+                    NotifyPropertyChanged(nameof(SelectedQuantity));
+                }
+            }
+        }
+
+        public void AddToCart(Product product)
+        {
+            ShoppingCartServiceProxy.Current.AddOrUpdateCart(product);
             Refresh();
         }
         

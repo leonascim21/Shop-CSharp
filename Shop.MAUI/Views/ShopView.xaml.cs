@@ -30,9 +30,22 @@ public partial class ShopView : ContentPage
     {
         var button = sender as Button;
         ShopViewModel? product = button?.CommandParameter as ShopViewModel;
-        if (product != null)
+
+        if(product == null || product.Model == null) { return; }
+
+
+        Product productToAdd = new Product
         {
-            (BindingContext as ShopViewModel)?.AddToCart(product);
+            Id = product.Model.Id,
+            Name = product.Model.Name ?? string.Empty,
+            Description = product.Model.Description ?? string.Empty,
+            Price = product.Model.Price,
+            Quantity = product.SelectedQuantity
+        };
+
+        if (productToAdd != null)
+        {
+            (BindingContext as ShopViewModel)?.AddToCart(productToAdd);
         }
         (BindingContext as ShopViewModel)?.Refresh();
     }

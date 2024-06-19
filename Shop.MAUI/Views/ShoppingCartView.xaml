@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Shop.MAUI.Views.ShoppingCartView"
+             NavigatedTo="ContentPage_NavigatedTo"
              Title="ShoppingCartView">
     <VerticalStackLayout>
         <Button Text="Back"
@@ -23,13 +24,13 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="{Binding Model.Id}" FontAttributes="Bold"/>
-                            <Label Grid.Row="1" Text="{Binding Model.Name}" />
-                            <Label Grid.Row="2" Text="{Binding Model.Description}" />
-                            <Label Grid.Row="3" Text="{Binding Model.Price}" />
-                            <Label Grid.Row="4" Text="{Binding Model.Quantity}" />
+                            <Label Grid.Row="0" Text="{Binding Model.Name}" />
+                            <Label Grid.Row="1" Text="{Binding Model.Description}" />
+                            <Label Grid.Row="2" Text="{Binding Model.Price}" />
+                            <Label Grid.Row="3" Text="{Binding Model.Quantity}" />
+                            <Button Grid.Row="4" Text="Remove From Cart" Clicked="RemoveFromCart" CommandParameter="{Binding .}"/>
                         </Grid>
                     </Frame>
                 </DataTemplate>

@@ -70,8 +70,8 @@
                                         BackgroundColor="#69C7B8"/>
                                     <Picker
                                             Title="Select Quantity"
-                                            ItemsSource="{Binding Model.QuantityOptions}"
-                                            SelectedItem="{Binding Model.SelectedQuantity}"/>
+                                            ItemsSource="{Binding QuantityOptions}"
+                                            SelectedItem="{Binding SelectedQuantity}"/>
                                 </HorizontalStackLayout>
                             </Grid>
                         </Frame>

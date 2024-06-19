@@ -9,7 +9,16 @@ namespace Shop.Library.Models
 {
     public class ShoppingCart
     {
-        int Id { get; set; }
         public List<Product>? Contents { get; set; }
+
+
+        public ShoppingCart()
+        {
+            Contents = new List<Product>()
+            {
+                new Product{Id = 1, Name = "Apples", Price=1.75M, Quantity=25, Description="Red apples"}
+            };
+        }
+
     }
 }

@@ -17,9 +17,10 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                return ShoppingCartServiceProxy.Current.Cart.Contents?.Where(p => p != null)
-                    .Select(p => new ShoppingCartViewModel(p)).ToList()
-                    ?? new List<ShoppingCartViewModel>();
+                return ShoppingCartServiceProxy.Current?.Cart?.Contents?
+                    .Where(p => p != null)
+                    .Select(p => new ShoppingCartViewModel(p))
+                    .ToList() ?? new List<ShoppingCartViewModel>();
             }
         }
         public Product? Model { get; set; }
@@ -37,6 +38,13 @@ namespace Shop.MAUI.ViewModels
                 Model = new Product();
         }
 
+        public void RemoveFromCart(ShoppingCartViewModel product)
+        {
+            Product ProductToRemove = product?.Model ?? new Product();
+            ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove);
+            Refresh();
+        }
+
 
         public void Refresh()
         {
@@ -49,5 +57,7 @@ namespace Shop.MAUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
     }
 }
