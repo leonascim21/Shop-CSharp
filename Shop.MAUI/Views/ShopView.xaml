@@ -2,23 +2,55 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Shop.MAUI.Views.ShopView"
-             Title="Shop"
              NavigatedTo="ContentPage_NavigatedTo">
     <ScrollView>
         <VerticalStackLayout>
-            <Button Text="Home" Clicked="GoToHomePage"/>
+            <Label Text="Shop" 
+                   HorizontalOptions="Center"
+                    FontAttributes="Bold"
+                    FontSize="30" />
+            <HorizontalStackLayout Spacing="10" Padding="10" HorizontalOptions="Center">
+                <ImageButton Source="home.png"
+                        Clicked="GoToHomePage" 
+                        CornerRadius="10"
+                        Padding="6"
+                        BackgroundColor="#69C7B8"
+                        MaximumHeightRequest="50"
+                        MaximumWidthRequest="50"/>
+                <BoxView BackgroundColor="White" 
+                    WidthRequest="50"/>
+                <Entry Placeholder="Search Shop" WidthRequest="400" HeightRequest="52"/>
+                <ImageButton Source="search.png" 
+                    CornerRadius="10"
+                    Padding="6"
+                    BackgroundColor="#69C7B8"
+                    MaximumHeightRequest="50"
+                    MaximumWidthRequest="50"
+                    HorizontalOptions="End"/>
+                <BoxView BackgroundColor="White" 
+                    WidthRequest="50"/>
+                <ImageButton Source="cart.png"
+                    Clicked="GoToShoppingCartPage"
+                    CornerRadius="10"
+                    Padding="6"
+                    BackgroundColor="#69C7B8"
+                    MaximumHeightRequest="50"
+                    MaximumWidthRequest="50"/>
+            </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" 
-                                        Span="5" 
+                                        Span="4" 
                                         HorizontalItemSpacing="10"
                                         VerticalItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BorderColor="Black" BackgroundColor="LightGray" CornerRadius="10" Margin="10" Padding="10">
+                        <Frame BorderColor="White" BackgroundColor="LightGray" CornerRadius="10" Margin="10" Padding="10">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -26,8 +58,21 @@
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Text="{Binding Model.Name}" />
                                 <Label Grid.Row="1" Text="{Binding Model.Description}" />
-                                <Label Grid.Row="2" Text="{Binding Model.Price}" />
+                                <Label Grid.Row="2" Text="{Binding Model.Price, StringFormat='{0:C}'}" />
                                 <Label Grid.Row="3" Text="{Binding Model.Quantity}" />
+                                <Label Grid.Row="4"  HorizontalOptions="End"/>
+
+                                <HorizontalStackLayout Spacing="10" Grid.Row="5" HorizontalOptions="End">
+                                    <Button Text="Add to Cart"
+                                        Clicked="AddToCart"
+                                        CommandParameter="{Binding .}"
+                                        TextColor="Black" 
+                                        BackgroundColor="#69C7B8"/>
+                                    <Picker
+                                            Title="Select Quantity"
+                                            ItemsSource="{Binding Model.QuantityOptions}"
+                                            SelectedItem="{Binding Model.SelectedQuantity}"/>
+                                </HorizontalStackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>

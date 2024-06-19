@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Library.Services
 {
-    internal class ShoppingCartServiceProxy
+    public class ShoppingCartServiceProxy
     {
         private static ShoppingCartServiceProxy? instance;
         private static object instanceLock = new object();
@@ -61,12 +61,12 @@ namespace Shop.Library.Services
                 return;
             }
 
-            inventoryProduct.Quantity -= newProduct.Quantity;
+            inventoryProduct.Quantity -= newProduct.SelectedQuantity;
 
             if (existingProduct != null)
             {
 
-                existingProduct.Quantity += newProduct.Quantity;
+                existingProduct.Quantity += newProduct.SelectedQuantity;
             }
             else
             {

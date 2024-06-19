@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Library.Models
 {
-    internal class ShoppingCart
+    public class ShoppingCart
     {
         int Id { get; set; }
         public List<Product>? Contents { get; set; }

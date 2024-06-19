@@ -10,26 +10,26 @@ using System.Threading.Tasks;
 
 namespace Shop.MAUI.ViewModels
 {
-    class ShopViewModel : INotifyPropertyChanged
+    internal class ShoppingCartViewModel : INotifyPropertyChanged
     {
-        public List<ShopViewModel> Products
+
+        public List<ShoppingCartViewModel> Products
         {
             get
             {
-                return InventoryServiceProxy.Current.Products.Where(p => p.Quantity > 0)
-                    .Select(p => new ShopViewModel(p)).ToList()
-                    ?? new List<ShopViewModel>();
+                return ShoppingCartServiceProxy.Current.Cart.Contents?.Where(p => p != null)
+                    .Select(p => new ShoppingCartViewModel(p)).ToList()
+                    ?? new List<ShoppingCartViewModel>();
             }
         }
-
         public Product? Model { get; set; }
 
-        public ShopViewModel()
+        public ShoppingCartViewModel()
         {
             Model = new Product();
         }
 
-        public ShopViewModel(Product? p)
+        public ShoppingCartViewModel(Product? p)
         {
             if (p != null)
                 Model = p;
@@ -37,19 +37,11 @@ namespace Shop.MAUI.ViewModels
                 Model = new Product();
         }
 
-        
-        public void AddToCart(ShopViewModel product)
-        {
-            ShoppingCartServiceProxy.Current.AddToCart(product.Model ?? new Product());
-            Refresh();
-        }
-        
-        
+
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
         }
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -57,6 +49,5 @@ namespace Shop.MAUI.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

@@ -7,24 +7,6 @@ namespace Shop.MAUI.ViewModels
     {
         public Product? Model { get; set; }
 
-        public override string ToString()
-        {
-            if (Model == null)
-            {
-                return string.Empty;
-            }
-            return $"[{Model.Id}]  Name:{Model.Name}  Price:{Model.Price:C}";
-        }
-
-        public string DisplayPrice
-        {
-            get
-            {
-                if (Model == null) { return string.Empty; }
-                return $"{Model.Price:C}";
-            }
-        }
-
         public string PriceAsString
         {
             set
