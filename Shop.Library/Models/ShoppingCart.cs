@@ -14,10 +14,7 @@ namespace Shop.Library.Models
 
         public ShoppingCart()
         {
-            Contents = new List<Product>()
-            {
-                new Product{Id = 1, Name = "Apples", Price=1.75M, Quantity=25, Description="Red apples"}
-            };
+            Contents = new List<Product>();
         }
 
     }

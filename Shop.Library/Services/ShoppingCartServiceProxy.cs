@@ -64,6 +64,11 @@ namespace Shop.Library.Services
             Cart.Contents?.Remove(product);
         }
 
+        public void Checkout()
+        {
+            Cart = new ShoppingCart();
+        }
+
 
     }
 }

@@ -45,10 +45,44 @@ namespace Shop.MAUI.ViewModels
             Refresh();
         }
 
+        public void Checkout()
+        {
+            ShoppingCartServiceProxy.Current.Checkout();
+            Refresh();
+        }
+
+        public string DisplayPriceQuantity
+        {
+            get
+            {
+                return $"{Model?.Price:C}  ({Model?.Quantity} units)";
+            }
+        }
+
+        public string DisplayTotalItemPrice
+        {
+            get
+            {
+                return $"{Model?.Price * Model?.Quantity:C}";
+            }
+        }
+
+        public string DisplayCartPrice
+        {
+            get
+            {
+                decimal TotalPrice = Products
+                    .Where(p => p != null)
+                    .Aggregate(0m, (accumulator, currentValue) => accumulator + (currentValue.Model.Price * currentValue.Model.Quantity));
+
+                return $"Total Price: {TotalPrice:C}";
+            }
+        }
 
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
+            NotifyPropertyChanged(nameof(DisplayCartPrice));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

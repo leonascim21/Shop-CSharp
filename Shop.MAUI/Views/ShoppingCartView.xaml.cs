@@ -22,7 +22,7 @@ public partial class ShoppingCartView : ContentPage
 
     private void RemoveFromCart(object sender, EventArgs e)
     {
-        var button = sender as Button;
+        var button = sender as ImageButton;
         ShoppingCartViewModel? product = button?.CommandParameter as ShoppingCartViewModel;
 
 
@@ -30,6 +30,12 @@ public partial class ShoppingCartView : ContentPage
         {
             (BindingContext as ShoppingCartViewModel)?.RemoveFromCart(product);
         }
+        (BindingContext as ShoppingCartViewModel)?.Refresh();
+    }
+
+    private void CheckoutCart(object sender, EventArgs e)
+    {
+        (BindingContext as ShoppingCartViewModel).Checkout();
         (BindingContext as ShoppingCartViewModel)?.Refresh();
     }
 }
