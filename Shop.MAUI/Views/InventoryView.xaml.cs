@@ -1,4 +1,5 @@
 using Shop.MAUI.ViewModels;
+using Shop_CSharp.Models;
 
 namespace Shop.MAUI.Views;
 
@@ -18,6 +19,17 @@ public partial class InventoryView : ContentPage
     {
         Shell.Current.GoToAsync("//AddProductPage");
     }
+
+    private void GoToEditProductPage(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        AddProductViewModel? product = button?.CommandParameter as AddProductViewModel;
+        if (product != null)
+        {
+            Shell.Current.GoToAsync($"//EditProductPage?productId={product.Model.Id}");
+        }
+    }
+
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {

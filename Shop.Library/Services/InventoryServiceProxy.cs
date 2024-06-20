@@ -50,6 +50,12 @@ namespace Shop.Library.Services
                 products.Add(p);
             }
 
+            else
+            {
+                Product ProductToEdit = Current.Products.First(prod => prod.Id == p.Id);
+                ProductToEdit = p;
+            }
+
             return p;
         }
 

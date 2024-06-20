@@ -23,5 +23,8 @@
     <ShellContent
         ContentTemplate="{DataTemplate views:ShoppingCartView}"
         Route="ShoppingCartPage" />
+    <ShellContent
+        ContentTemplate="{DataTemplate views:EditProductView}"
+        Route="EditProductPage" />
 
 </Shell>
