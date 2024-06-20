@@ -1,9 +1,11 @@
 ﻿using Shop.Library.Services;
 using Shop_CSharp.Models;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Shop.MAUI.ViewModels
 {
-    class AddProductViewModel
+    class AddProductViewModel : INotifyPropertyChanged
     {
         public Product? Model { get; set; }
 
@@ -21,8 +23,9 @@ namespace Shop.MAUI.ViewModels
                 }
                 else
                 {
-
+                    Model.Price = 0;
                 }
+                NotifyPropertyChanged(nameof(Model.Price));
             }
         }
 
@@ -40,8 +43,9 @@ namespace Shop.MAUI.ViewModels
                 }
                 else
                 {
-
+                    Model.Price = 0;
                 }
+                NotifyPropertyChanged(nameof(Model.Quantity));
             }
         }
 
@@ -53,10 +57,7 @@ namespace Shop.MAUI.ViewModels
 
         public AddProductViewModel(Product? p)
         {
-            if (p != null)
-                Model = p;
-            else 
-                Model = new Product();
+            Model = p ?? new Product();
         }
 
         public void Add()
@@ -71,6 +72,16 @@ namespace Shop.MAUI.ViewModels
         public void ResetFields()
         {
             Model = new Product();
+            NotifyPropertyChanged(nameof(Model));
+            NotifyPropertyChanged(nameof(PriceAsString));
+            NotifyPropertyChanged(nameof(QuantityAsString));
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

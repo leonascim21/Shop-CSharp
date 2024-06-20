@@ -7,13 +7,6 @@
         <VerticalStackLayout Spacing="15" Padding="10">
             <Label Text="Shopping Cart" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center"></Label>
             <Frame BorderColor="LightGray" CornerRadius="10" WidthRequest="600">
-                <Frame.Shadow>
-                    <Shadow
-            Brush="Black"
-            Offset="10,10"
-            Opacity="0.5"
-            Radius="20" />
-                </Frame.Shadow>
                 <ListView ItemsSource="{Binding Products}" HorizontalOptions="Center" WidthRequest="600" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>

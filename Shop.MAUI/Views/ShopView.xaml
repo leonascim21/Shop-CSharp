@@ -54,13 +54,11 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Text="{Binding Model.Name}" />
                                 <Label Grid.Row="1" Text="{Binding Model.Description}" />
                                 <Label Grid.Row="2" Text="{Binding Model.Price, StringFormat='{0:C}'}" />
-                                <Label Grid.Row="3" Text="{Binding Model.Quantity}" />
-                                <Label Grid.Row="4"  HorizontalOptions="End"/>
+                                <Label Grid.Row="3" Text=" "/>
 
                                 <HorizontalStackLayout Spacing="10" Grid.Row="5" HorizontalOptions="End">
                                     <Button Text="Add to Cart"
