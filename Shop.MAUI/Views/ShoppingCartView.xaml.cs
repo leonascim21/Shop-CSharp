@@ -17,7 +17,10 @@ public partial class ShoppingCartView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as ShoppingCartViewModel)?.Refresh();
+        Device.BeginInvokeOnMainThread(() =>
+        {
+            (BindingContext as ShoppingCartViewModel)?.Refresh();
+        });
     }
 
     private void RemoveFromCart(object sender, EventArgs e)
@@ -28,14 +31,21 @@ public partial class ShoppingCartView : ContentPage
 
         if (product != null)
         {
-            (BindingContext as ShoppingCartViewModel)?.RemoveFromCart(product);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                (BindingContext as ShoppingCartViewModel)?.RemoveFromCart(product);
+                (BindingContext as ShoppingCartViewModel)?.Refresh();
+            });
         }
         (BindingContext as ShoppingCartViewModel)?.Refresh();
     }
 
     private void CheckoutCart(object sender, EventArgs e)
     {
-        (BindingContext as ShoppingCartViewModel).Checkout();
-        (BindingContext as ShoppingCartViewModel)?.Refresh();
+        Device.BeginInvokeOnMainThread(() =>
+        {
+            (BindingContext as ShoppingCartViewModel)?.Checkout();
+            (BindingContext as ShoppingCartViewModel)?.Refresh();
+        });
     }
 }
