@@ -36,6 +36,7 @@
                     BackgroundColor="#69C7B8"
                     MaximumHeightRequest="50"
                     MaximumWidthRequest="50"/>
+                <Label Text="{Binding TotalCartPrice}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>

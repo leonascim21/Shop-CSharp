@@ -67,11 +67,25 @@ namespace Shop.MAUI.ViewModels
             ShoppingCartServiceProxy.Current.AddOrUpdateCart(product);
             Refresh();
         }
-        
-        
+
+        public string TotalCartPrice
+        {
+            get
+            {
+                if(ShoppingCartServiceProxy.Current.Cart.Contents == null) { return string.Empty; }
+
+                decimal TotalPrice = ShoppingCartServiceProxy.Current.Cart.Contents
+                    .Where(p => p != null)
+                    .Aggregate(0m, (accumulator, product) => accumulator + (product.Price * product.Quantity));
+
+                return $"  {TotalPrice:C}";
+            }
+        }
+
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
+            NotifyPropertyChanged(nameof(TotalCartPrice));
         }
 
 

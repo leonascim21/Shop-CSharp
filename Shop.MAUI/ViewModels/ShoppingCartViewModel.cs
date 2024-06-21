@@ -73,7 +73,7 @@ namespace Shop.MAUI.ViewModels
             {
                 decimal TotalPrice = Products
                     .Where(p => p != null)
-                    .Aggregate(0m, (accumulator, currentValue) => accumulator + (currentValue.Model.Price * currentValue.Model.Quantity));
+                    .Aggregate(0m, (accumulator, product) => accumulator + (product.Model.Price * product.Model.Quantity));
 
                 return $"Total Price: {TotalPrice:C}";
             }
