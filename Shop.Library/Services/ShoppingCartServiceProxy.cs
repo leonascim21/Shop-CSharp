@@ -38,10 +38,12 @@ namespace Shop.Library.Services
         public void AddOrUpdateCart(Product product)
         {
 
-            Product? inventoryProduct  = InventoryServiceProxy.Current.Products.FirstOrDefault(p => p.Id == product.Id);
+            Product? inventoryProduct  = InventoryServiceProxy.Current.Products
+                .FirstOrDefault(p => p.Id == product.Id);
             if(inventoryProduct == null) { return; }
             
-            Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == product.Id);
+            Product? existingProduct = Cart.Contents?
+                .FirstOrDefault(p => p.Id == product.Id);
             if(existingProduct != null)
             {
                 existingProduct.Quantity += product.Quantity;
@@ -55,7 +57,8 @@ namespace Shop.Library.Services
 
         public void RemoveFromCart(Product product)
         {
-            Product? inventoryProduct = InventoryServiceProxy.Current.Products.FirstOrDefault(p => p.Id == product.Id);
+            Product? inventoryProduct = InventoryServiceProxy.Current.Products
+                .FirstOrDefault(p => p.Id == product.Id);
             if (inventoryProduct != null) { inventoryProduct.Quantity += product.Quantity; }
 
             Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == product.Id);

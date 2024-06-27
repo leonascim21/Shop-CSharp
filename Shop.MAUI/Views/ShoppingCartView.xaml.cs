@@ -29,7 +29,6 @@ public partial class ShoppingCartView : ContentPage
         if (product != null)
         {
                 (BindingContext as ShoppingCartViewModel)?.RemoveFromCart(product);
-                (BindingContext as ShoppingCartViewModel)?.Refresh();
         }
         (BindingContext as ShoppingCartViewModel)?.Refresh();
     }
