@@ -82,6 +82,28 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
+        public string QuantityDisplay
+        {
+            get
+            {
+                return $"Quantity: {Model?.Quantity}";
+            }
+        }
+        public string MarkdownDisplay
+        {
+            get
+            {
+                return $"Markdown: {Model?.Markdown * 100}%";
+            }
+        }
+        public string BogoDisplay
+        {
+            get
+            {
+                return $"Buy 1 Get 1: {Model?.Bogo}";
+            }
+        }
+
         public AddProductViewModel() 
         {
             Model = new Product();

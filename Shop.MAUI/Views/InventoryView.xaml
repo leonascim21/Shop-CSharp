@@ -51,15 +51,19 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Text="{Binding Model.Id}" FontAttributes="Bold"/>
                                 <Label Grid.Row="1" Text="{Binding Model.Name}" />
                                 <Label Grid.Row="2" Text="{Binding Model.Description}" />
                                 <Label Grid.Row="3" Text="{Binding Model.Price, StringFormat='{0:C}'}" />
-                                <Label Grid.Row="4" Text="{Binding Model.Quantity}" />
+                                <Label Grid.Row="4" Text="{Binding QuantityDisplay}" />
+                                <Label Grid.Row="5" Text="{Binding MarkdownDisplay}" />
+                                <Label Grid.Row="6" Text="{Binding BogoDisplay}" />
 
-                                <StackLayout  Spacing="10" Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="End">
+                                <StackLayout  Spacing="10" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="End">
                                     <ImageButton Source="pencil.png"
                                             Clicked="GoToEditProductPage"
                                             CommandParameter="{Binding .}"
