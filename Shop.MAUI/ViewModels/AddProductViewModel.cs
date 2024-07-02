@@ -93,7 +93,10 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                return $"Markdown: {Model?.Markdown * 100}%";
+                if (Model != null)
+                    return $"Markdown: {Math.Round(Model.Markdown * 100, 0)}%";
+
+                return string.Empty;
             }
         }
         public string BogoDisplay

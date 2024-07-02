@@ -41,7 +41,10 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                return $"{Model?.Markdown * 100}% Off";
+                if(Model != null)
+                    return $"{Math.Round((Model.Markdown * 100), 0)}% Off";
+
+                return string.Empty;
             }
         }
         public bool IsMarkdownVisible
