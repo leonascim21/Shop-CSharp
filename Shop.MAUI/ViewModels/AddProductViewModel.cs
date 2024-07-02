@@ -49,6 +49,38 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
+        public List<string> MarkdownOptions
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "0%", "5%", "10%", "15%", "20%", "25%", "30%", "35%", "40%", "45%", "50%",
+                        "55%", "60%", "65%", "70%", "75%", "80%", "85%", "90%", "95%", "100%"
+                };
+            }
+        }
+
+        public string MarkdownAsString
+        {
+            set
+            {
+                if (Model == null)
+                {
+                    return;
+                }
+                string? noPercent = value?.Replace("%", "");
+                if (double.TryParse(noPercent, out var markdown))
+                {
+                    Model.Markdown = markdown / 100;
+                }
+                else
+                {
+                    Model.Markdown = 0;
+                }
+                NotifyPropertyChanged(nameof(Model.Markdown));
+            }
+        }
 
         public AddProductViewModel() 
         {
@@ -75,6 +107,7 @@ namespace Shop.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Model));
             NotifyPropertyChanged(nameof(PriceAsString));
             NotifyPropertyChanged(nameof(QuantityAsString));
+            NotifyPropertyChanged(nameof(MarkdownAsString));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

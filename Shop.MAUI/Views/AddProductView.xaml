@@ -25,6 +25,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" 
@@ -63,6 +65,25 @@
             <Entry Text="{Binding QuantityAsString}"
                 Grid.Row="3" Grid.Column="1" 
                 BackgroundColor="White" HorizontalOptions="FillAndExpand" />
+            <Label Grid.Row="4" Grid.Column="0" 
+                   Padding="5"
+                   Text="Markdown" 
+                   FontAttributes="Bold"
+                    VerticalOptions="Center"/>
+            <Picker Grid.Row="4" Grid.Column="1" 
+                    BackgroundColor="White" 
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding MarkdownOptions}"
+                    SelectedItem="{Binding MarkdownAsString}"/>
+            <Label Grid.Row="5" Grid.Column="0" 
+                    Padding="5"
+                    Text="Buy 1 Get 1" 
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"/>
+            <CheckBox Grid.Row="5" Grid.Column="1" 
+                    BackgroundColor="White" 
+                    HorizontalOptions="FillAndExpand"
+                    IsChecked="{Binding Model.Bogo}" />
         </Grid>
 
         <Button Text="Add" 

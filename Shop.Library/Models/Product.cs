@@ -12,13 +12,15 @@ namespace Shop_CSharp.Models
 
         public Product() { }
 
-        public Product(string name, string description, decimal price, int quantity)
+        public Product(string name, string description, decimal price, int quantity, double markdown=0, bool bogo=false)
         {
             Name = name;
             Description = description;
             Price = price;
             Id = 0;
             Quantity = quantity;
+            Markdown = markdown;
+            Bogo = bogo;
         }
 
 
@@ -27,6 +29,8 @@ namespace Shop_CSharp.Models
         public decimal Price { get; set; }
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public double Markdown { get; set; }
+        public bool Bogo { get; set; }
 
     }
 }
