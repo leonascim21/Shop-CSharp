@@ -37,6 +37,28 @@ namespace Shop.MAUI.ViewModels
                 Model = new Product();
         }
 
+        public string MarkdownDisplay
+        {
+            get
+            {
+                return $"{Model?.Markdown * 100}% Off";
+            }
+        }
+        public bool IsMarkdownVisible
+        {
+            get
+            {
+                return Model?.Markdown != 0;
+            }
+        }
+        public bool IsBogoVisible
+        {
+            get
+            {
+                return Model?.Bogo == true;
+            }
+        }
+
         public List<int> QuantityOptions
         {
             get

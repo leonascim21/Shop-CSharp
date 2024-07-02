@@ -61,6 +61,14 @@
                                 <Label Grid.Row="2" Text="{Binding Model.Price, StringFormat='{0:C}'}" />
                                 <Label Grid.Row="3" Text=" "/>
 
+                                <Label Grid.Row="0" Text="Buy 1 Get 1" 
+                                       HorizontalOptions="End" 
+                                       IsVisible="{Binding IsBogoVisible}"/>
+                                
+                                <Label Grid.Row="1" Text="{Binding MarkdownDisplay}" 
+                                       HorizontalOptions="End" 
+                                       IsVisible="{Binding IsMarkdownVisible}"/>
+
                                 <HorizontalStackLayout Spacing="10" Grid.Row="5" HorizontalOptions="End">
                                     <Button Text="Add to Cart"
                                         Clicked="AddToCart"
