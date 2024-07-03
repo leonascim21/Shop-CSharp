@@ -5,11 +5,12 @@ namespace Shop.MAUI.Views;
 
 public partial class InventoryView : ContentPage
 {
-	public InventoryView()
-	{
+    public InventoryView()
+    {
         InitializeComponent();
         BindingContext = new InventoryViewModel();
-	}
+    }
+
     private void GoToHomePage(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//MainPage");
@@ -17,7 +18,7 @@ public partial class InventoryView : ContentPage
 
     private void GoToAddProductPage(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//AddProductPage");
+        Shell.Current.GoToAsync("//ProductPage");
     }
 
     private void GoToEditProductPage(object sender, EventArgs e)
@@ -26,10 +27,9 @@ public partial class InventoryView : ContentPage
         ProductViewModel? product = button?.CommandParameter as ProductViewModel;
         if (product?.Model != null)
         {
-            Shell.Current.GoToAsync($"//EditProductPage?productId={product.Model.Id}");
+            Shell.Current.GoToAsync($"//ProductPage?productId={product.Model.Id}");
         }
     }
-
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
@@ -46,5 +46,4 @@ public partial class InventoryView : ContentPage
         }
         (BindingContext as InventoryViewModel)?.Refresh();
     }
-
 }

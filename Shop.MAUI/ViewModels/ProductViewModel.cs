@@ -9,8 +9,53 @@ namespace Shop.MAUI.ViewModels
     {
         public Product? Model { get; set; }
 
+        public int ProductId { get; set; }
+
+        public ProductViewModel()
+        {
+            Model = new Product();
+        }
+
+        public ProductViewModel(Product? p)
+        {
+            Model = p ?? new Product();
+        }
+
+        public void FindProduct()
+        {
+            Model = InventoryServiceProxy.Current.Products
+                .FirstOrDefault(p => p.Id == ProductId) ?? new Product();
+        }
+
+        public void Save()
+        {
+            if (Model != null)
+            {
+                InventoryServiceProxy.Current.AddOrUpdate(Model);
+                ResetFields();
+            }
+        }
+
+        public void ResetFields()
+        {
+            Model = new Product();
+            NotifyPropertyChanged(nameof(Model));
+            NotifyPropertyChanged(nameof(PriceAsString));
+            NotifyPropertyChanged(nameof(QuantityAsString));
+            NotifyPropertyChanged(nameof(MarkdownAsString));
+        }
+
         public string PriceAsString
         {
+            get
+            {
+                if (Model?.Id != 0)
+                {
+                    return Model?.Price.ToString() ?? "0";
+                }
+                else
+                    { return string.Empty; }
+            }
             set
             {
                 if (Model == null)
@@ -28,9 +73,17 @@ namespace Shop.MAUI.ViewModels
                 NotifyPropertyChanged(nameof(Model.Price));
             }
         }
-
         public string QuantityAsString
         {
+            get
+            {
+                if (Model?.Id != 0)
+                {
+                    return Model?.Quantity.ToString() ?? "0";
+                }
+                else
+                { return string.Empty; }
+            }
             set
             {
                 if (Model == null)
@@ -43,12 +96,11 @@ namespace Shop.MAUI.ViewModels
                 }
                 else
                 {
-                    Model.Price = 0;
+                    Model.Quantity = 0;
                 }
                 NotifyPropertyChanged(nameof(Model.Quantity));
             }
         }
-
         public List<string> MarkdownOptions
         {
             get
@@ -60,9 +112,17 @@ namespace Shop.MAUI.ViewModels
                 };
             }
         }
-
         public string MarkdownAsString
         {
+            get
+            {
+                if (Model?.Id != 0)
+                {
+                    return $"{(Model?.Markdown)*100}%" ?? "0%";
+                }
+                else
+                { return string.Empty; }
+            }
             set
             {
                 if (Model == null)
@@ -81,14 +141,6 @@ namespace Shop.MAUI.ViewModels
                 NotifyPropertyChanged(nameof(Model.Markdown));
             }
         }
-
-        public string QuantityDisplay
-        {
-            get
-            {
-                return $"Quantity: {Model?.Quantity}";
-            }
-        }
         public string MarkdownDisplay
         {
             get
@@ -99,40 +151,19 @@ namespace Shop.MAUI.ViewModels
                 return string.Empty;
             }
         }
+        public string QuantityDisplay
+        {
+            get
+            {
+                return $"Quantity: {Model?.Quantity}";
+            }
+        }
         public string BogoDisplay
         {
             get
             {
                 return $"Buy 1 Get 1: {Model?.Bogo}";
             }
-        }
-
-        public ProductViewModel() 
-        {
-            Model = new Product();
-        }
-
-        public ProductViewModel(Product? p)
-        {
-            Model = p ?? new Product();
-        }
-
-        public void Add()
-        {
-            if (Model != null)
-            {
-                InventoryServiceProxy.Current.AddOrUpdate(Model);
-                ResetFields();
-            }
-        }
-
-        public void ResetFields()
-        {
-            Model = new Product();
-            NotifyPropertyChanged(nameof(Model));
-            NotifyPropertyChanged(nameof(PriceAsString));
-            NotifyPropertyChanged(nameof(QuantityAsString));
-            NotifyPropertyChanged(nameof(MarkdownAsString));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

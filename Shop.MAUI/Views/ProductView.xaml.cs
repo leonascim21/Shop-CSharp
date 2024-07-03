@@ -2,25 +2,41 @@ using Shop.MAUI.ViewModels;
 
 namespace Shop.MAUI.Views;
 
-public partial class AddProductView : ContentPage
+[QueryProperty(nameof(ProductId), "productId")]
+public partial class ProductView : ContentPage
 {
-	public AddProductView()
-	{
-		InitializeComponent();
+    public ProductView()
+    {
+        InitializeComponent();
         BindingContext = new ProductViewModel();
-	}
+    }
+
+    public int ProductId
+    {
+        get
+        {
+            return (BindingContext as ProductViewModel)?.ProductId ?? 0;
+        }
+        set
+        {
+            ProductViewModel viewModel = new ProductViewModel();
+            viewModel.ProductId = value;
+            viewModel.FindProduct();
+            BindingContext = viewModel;
+        }
+    }
 
     private void GoToInventoryPage(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//InventoryPage");
     }
 
-    private void AddProduct(object sender, EventArgs e)
+    public void SaveProduct(object sender, EventArgs e)
     {
-        ProductViewModel? product = BindingContext as ProductViewModel;
+        var product = BindingContext as ProductViewModel;
         if (product != null)
         {
-            product.Add();
+            product.Save();
             Shell.Current.GoToAsync("//InventoryPage");
         }
     }

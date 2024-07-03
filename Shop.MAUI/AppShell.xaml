@@ -18,13 +18,9 @@
         ContentTemplate="{DataTemplate views:ShopView}"
         Route="ShopPage" />
     <ShellContent
-        ContentTemplate="{DataTemplate views:AddProductView}"
-        Route="AddProductPage" />
+        ContentTemplate="{DataTemplate views:ProductView}"
+        Route="ProductPage" />
     <ShellContent
         ContentTemplate="{DataTemplate views:ShoppingCartView}"
         Route="ShoppingCartPage" />
-    <ShellContent
-        ContentTemplate="{DataTemplate views:EditProductView}"
-        Route="EditProductPage" />
-
 </Shell>

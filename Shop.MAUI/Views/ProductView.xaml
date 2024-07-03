@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Shop.MAUI.Views.AddProductView">
-    
-
-
+             x:Class="Shop.MAUI.Views.ProductView">
     <VerticalStackLayout
         Padding="100"
         Spacing="20">
 
-        <Label Text="Add Product"
+        <Label Text="Add or Edit Product"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 FontAttributes="Bold"
@@ -56,7 +53,7 @@
             <Entry Text="{Binding PriceAsString}" 
                    Grid.Row="2" Grid.Column="1" 
                    BackgroundColor="White" HorizontalOptions="FillAndExpand"/>
-            
+
             <Label Grid.Row="3" Grid.Column="0" 
                    Padding="5"
                    Text="Quantity" 
@@ -86,14 +83,14 @@
                     IsChecked="{Binding Model.Bogo}" />
         </Grid>
 
-        <Button Text="Add" 
-                Clicked="AddProduct" 
+        <Button Text="Save Changes" 
+                Clicked="SaveProduct"
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
                 TextColor="Black"/>
-        
-        <Button Text="Back" 
-                Clicked="GoToInventoryPage" 
+
+        <Button Text="Back"
+                Clicked="GoToInventoryPage"
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
                 TextColor="Black"/>
