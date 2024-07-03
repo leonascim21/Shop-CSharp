@@ -7,7 +7,7 @@ public partial class AddProductView : ContentPage
 	public AddProductView()
 	{
 		InitializeComponent();
-        BindingContext = new AddProductViewModel();
+        BindingContext = new ProductViewModel();
 	}
 
     private void GoToInventoryPage(object sender, EventArgs e)
@@ -17,7 +17,7 @@ public partial class AddProductView : ContentPage
 
     private void AddProduct(object sender, EventArgs e)
     {
-        AddProductViewModel? product = BindingContext as AddProductViewModel;
+        ProductViewModel? product = BindingContext as ProductViewModel;
         if (product != null)
         {
             product.Add();

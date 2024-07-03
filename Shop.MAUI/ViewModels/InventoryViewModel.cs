@@ -13,13 +13,13 @@ namespace Shop.MAUI.ViewModels
 {
     internal class InventoryViewModel : INotifyPropertyChanged
     {
-        public List<AddProductViewModel> Products
+        public List<ProductViewModel> Products
         {
             get
             {
                 return InventoryServiceProxy.Current.Products.Where(p => p != null)
-                    .Select(p => new AddProductViewModel(p)).ToList()
-                    ?? new List<AddProductViewModel>();
+                    .Select(p => new ProductViewModel(p)).ToList()
+                    ?? new List<ProductViewModel>();
             }
         }
 
@@ -28,7 +28,7 @@ namespace Shop.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Products));
         }
 
-        public void Remove(AddProductViewModel product)
+        public void Remove(ProductViewModel product)
         {
             InventoryServiceProxy.Current.Remove(product.Model ?? new Product());
             Refresh();

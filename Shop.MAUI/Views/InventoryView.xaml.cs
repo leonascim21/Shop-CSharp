@@ -23,7 +23,7 @@ public partial class InventoryView : ContentPage
     private void GoToEditProductPage(object sender, EventArgs e)
     {
         var button = sender as ImageButton;
-        AddProductViewModel? product = button?.CommandParameter as AddProductViewModel;
+        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
         if (product?.Model != null)
         {
             Shell.Current.GoToAsync($"//EditProductPage?productId={product.Model.Id}");
@@ -39,7 +39,7 @@ public partial class InventoryView : ContentPage
     private void DeleteProduct(object sender, EventArgs e)
     {
         var button = sender as ImageButton;
-        AddProductViewModel? product = button?.CommandParameter as AddProductViewModel;
+        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
         if (product != null)
         {
             (BindingContext as InventoryViewModel)?.Remove(product);

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Shop.MAUI.ViewModels
 {
-    class AddProductViewModel : INotifyPropertyChanged
+    class ProductViewModel : INotifyPropertyChanged
     {
         public Product? Model { get; set; }
 
@@ -107,12 +107,12 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
-        public AddProductViewModel() 
+        public ProductViewModel() 
         {
             Model = new Product();
         }
 
-        public AddProductViewModel(Product? p)
+        public ProductViewModel(Product? p)
         {
             Model = p ?? new Product();
         }
