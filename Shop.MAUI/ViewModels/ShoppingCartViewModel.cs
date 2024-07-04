@@ -1,4 +1,5 @@
-﻿using Shop.Library.Services;
+﻿using Shop.Library.Models;
+using Shop.Library.Services;
 using Shop_CSharp.Models;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,21 @@ namespace Shop.MAUI.ViewModels
     internal class ShoppingCartViewModel : INotifyPropertyChanged
     {
 
+
+        public ShoppingCartViewModel(ShoppingCart c)
+        {
+            Cart = c;
+        }
+
+        public ShoppingCart? Cart { get; set; }
+
         public List<ShoppingCartViewModel> Products
         {
             get
             {
-                return ShoppingCartServiceProxy.Current?.Cart?.Contents?
+                ShoppingCart? Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == CartId);
+
+                return Cart?.Contents?
                     .Where(p => p != null)
                     .Select(p => new ShoppingCartViewModel(p))
                     .ToList() ?? new List<ShoppingCartViewModel>();
@@ -28,6 +39,7 @@ namespace Shop.MAUI.ViewModels
         public ShoppingCartViewModel()
         {
             Model = new Product();
+            Cart = new ShoppingCart();
         }
 
         public ShoppingCartViewModel(Product? p)
@@ -41,13 +53,13 @@ namespace Shop.MAUI.ViewModels
         public void RemoveFromCart(ShoppingCartViewModel product)
         {
             Product ProductToRemove = product?.Model ?? new Product();
-            ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove);
+            ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove, Cart.Id);
             Refresh();
         }
 
         public void Checkout()
         {
-            ShoppingCartServiceProxy.Current.Checkout();
+            ShoppingCartServiceProxy.Current.Checkout(Cart.Id);
             Refresh();
         }
 

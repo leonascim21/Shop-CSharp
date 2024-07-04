@@ -1,4 +1,5 @@
-﻿using Shop.Library.Services;
+﻿using Shop.Library.Models;
+using Shop.Library.Services;
 using Shop_CSharp.Models;
 using System;
 using System.Collections.Generic;
@@ -22,32 +23,40 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
-        public void AddToCart(Product product)
-        {
-            ShoppingCartServiceProxy.Current.AddOrUpdateCart(product);
-            Refresh();
-        }
-
-        public string TotalCartPrice
+        public List<ShoppingCartViewModel> ShoppingCartList
         {
             get
             {
-                if(ShoppingCartServiceProxy.Current.Cart.Contents == null) { return string.Empty; }
-
-                decimal TotalPrice = ShoppingCartServiceProxy.Current.Cart.Contents
-                    .Where(p => p != null)
-                    .Aggregate(0m, (accumulator, product) => accumulator + (product.Price * product.Quantity));
-
-                return $"  {TotalPrice:C}";
+                return ShoppingCartServiceProxy.Current.CartList.Where(c => c != null)
+                    .Select(c => new ShoppingCartViewModel(c)).ToList()
+                    ?? new List<ShoppingCartViewModel>();
             }
+        }
+
+        private ShoppingCartViewModel? selectedCart;
+        public ShoppingCartViewModel SelectedCart
+        {
+            get => selectedCart ?? new ShoppingCartViewModel();
+            set
+            {
+                selectedCart = value;
+                CartId = selectedCart?.Cart?.Id ?? 0;
+                NotifyPropertyChanged();
+            }
+        }
+
+        int CartId { get; set; }
+
+        public void AddToCart(Product product)
+        {
+            ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
+            Refresh();
         }
 
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
-            NotifyPropertyChanged(nameof(TotalCartPrice));
         }
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
