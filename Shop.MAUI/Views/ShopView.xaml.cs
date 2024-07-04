@@ -50,4 +50,10 @@ public partial class ShopView : ContentPage
         (BindingContext as ShopViewModel)?.Refresh();
     }
 
+    private void AddCart(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//AddShoppingCartPage");
+        (BindingContext as ShopViewModel)?.Refresh();
+    }
+
 }

@@ -26,7 +26,8 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                ShoppingCart? Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == CartId);
+                //MUDAR 0 PRO CART ID
+                ShoppingCart? Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == 0);
 
                 return Cart?.Contents?
                     .Where(p => p != null)
