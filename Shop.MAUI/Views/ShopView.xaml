@@ -40,7 +40,13 @@
                         ItemsSource="{Binding ShoppingCartList}"
                         SelectedItem="{Binding SelectedCart}"
                         ItemDisplayBinding="{Binding Cart.Name}"/>
-                <Button Clicked="GoToAddShoppingCartPage"/>
+                <Button Text="Create Cart"
+                        Clicked="GoToAddShoppingCartPage"
+                        CornerRadius="10"
+                        Padding="6"
+                        BackgroundColor="#69C7B8"
+                        TextColor="Black"
+                        MaximumHeightRequest="50"/>
             </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
