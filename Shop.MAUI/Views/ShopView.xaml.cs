@@ -44,7 +44,9 @@ public partial class ShopView : ContentPage
             Name = product.Model.Name ?? string.Empty,
             Description = product.Model.Description ?? string.Empty,
             Price = product.Model.Price,
-            Quantity = product.SelectedQuantity
+            Quantity = product.SelectedQuantity,
+            Bogo = product.Model.Bogo,
+            Markdown = product.Model.Markdown
         };
 
         if (productToAdd != null)
