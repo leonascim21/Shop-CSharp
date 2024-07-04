@@ -40,7 +40,7 @@
                         ItemsSource="{Binding ShoppingCartList}"
                         SelectedItem="{Binding SelectedCart}"
                         ItemDisplayBinding="{Binding Cart.Name}"/>
-                <Button Clicked="AddCart"/>
+                <Button Clicked="GoToAddShoppingCartPage"/>
             </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>

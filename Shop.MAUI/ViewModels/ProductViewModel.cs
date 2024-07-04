@@ -216,6 +216,22 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
+        //ShoppingCart View  
+        public string DisplayPriceQuantity
+        {
+            get
+            {
+                return $"{Model?.Price:C}  ({Model?.Quantity} units)";
+            }
+        }
+        public string DisplayTotalItemPrice
+        {
+            get
+            {
+                return $"{Model?.Price * Model?.Quantity:C}";
+            }
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -3,6 +3,7 @@ using Shop_CSharp.Models;
 
 namespace Shop.MAUI.Views;
 
+[QueryProperty(nameof(CartId), "CartId")]
 public partial class ShoppingCartView : ContentPage
 {
 	public ShoppingCartView()
@@ -10,6 +11,31 @@ public partial class ShoppingCartView : ContentPage
         InitializeComponent();
 		BindingContext = new ShoppingCartViewModel();
 	}
+
+    private int cartId;
+    public int CartId
+    {
+        get
+        {
+          return cartId;
+        }
+        set
+        {
+            cartId = value;
+            LoadCart(cartId);
+        }
+    }
+
+    private void LoadCart(int cartId)
+    {
+        var viewModel = BindingContext as ShoppingCartViewModel;
+        if (viewModel != null)
+        {
+            viewModel.LoadCart(cartId);
+            viewModel.Refresh();
+        }
+    }
+
     private void GoToShopPage(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//ShopPage");
@@ -23,7 +49,7 @@ public partial class ShoppingCartView : ContentPage
     private void RemoveFromCart(object sender, EventArgs e)
     {
         var button = sender as ImageButton;
-        ShoppingCartViewModel? product = button?.CommandParameter as ShoppingCartViewModel;
+        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
 
 
         if (product != null)

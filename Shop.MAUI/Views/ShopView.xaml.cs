@@ -18,7 +18,11 @@ public partial class ShopView : ContentPage
     }
     private void GoToShoppingCartPage(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//ShoppingCartPage");
+        if ((BindingContext as ShopViewModel)?.SelectedCart.Cart != null)
+        {
+            int cartId = (BindingContext as ShopViewModel).SelectedCart.Cart.Id;
+            Shell.Current.GoToAsync($"//ShoppingCartPage?CartId={cartId}");
+        }
     }
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
@@ -50,7 +54,7 @@ public partial class ShopView : ContentPage
         (BindingContext as ShopViewModel)?.Refresh();
     }
 
-    private void AddCart(object sender, EventArgs e)
+    private void GoToAddShoppingCartPage(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//AddShoppingCartPage");
         (BindingContext as ShopViewModel)?.Refresh();

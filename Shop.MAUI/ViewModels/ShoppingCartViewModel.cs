@@ -13,45 +13,38 @@ namespace Shop.MAUI.ViewModels
 {
     internal class ShoppingCartViewModel : INotifyPropertyChanged
     {
-
-
+        public ShoppingCartViewModel()
+        {
+        }
         public ShoppingCartViewModel(ShoppingCart c)
         {
             Cart = c;
         }
 
+        public void LoadCart(int cartId)
+        {
+            CartId = cartId;
+            Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == cartId);
+            Refresh();
+        }
+
         public ShoppingCart? Cart { get; set; }
 
-        public List<ShoppingCartViewModel> Products
+        public int CartId { get; set; }
+
+        public List<ProductViewModel> Products
         {
             get
             {
-                //MUDAR 0 PRO CART ID
-                ShoppingCart? Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == 0);
+                ShoppingCart? Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == CartId);
 
                 return Cart?.Contents?
                     .Where(p => p != null)
-                    .Select(p => new ShoppingCartViewModel(p))
-                    .ToList() ?? new List<ShoppingCartViewModel>();
+                    .Select(p => new ProductViewModel(p))
+                    .ToList() ?? new List<ProductViewModel>();
             }
         }
-        public Product? Model { get; set; }
-
-        public ShoppingCartViewModel()
-        {
-            Model = new Product();
-            Cart = new ShoppingCart();
-        }
-
-        public ShoppingCartViewModel(Product? p)
-        {
-            if (p != null)
-                Model = p;
-            else
-                Model = new Product();
-        }
-
-        public void RemoveFromCart(ShoppingCartViewModel product)
+        public void RemoveFromCart(ProductViewModel product)
         {
             Product ProductToRemove = product?.Model ?? new Product();
             ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove, Cart.Id);
@@ -64,38 +57,9 @@ namespace Shop.MAUI.ViewModels
             Refresh();
         }
 
-        public string DisplayPriceQuantity
-        {
-            get
-            {
-                return $"{Model?.Price:C}  ({Model?.Quantity} units)";
-            }
-        }
-
-        public string DisplayTotalItemPrice
-        {
-            get
-            {
-                return $"{Model?.Price * Model?.Quantity:C}";
-            }
-        }
-
-        public string DisplayCartPrice
-        {
-            get
-            {
-                decimal TotalPrice = Products
-                    .Where(p => p != null)
-                    .Aggregate(0m, (accumulator, product) => accumulator + (product.Model.Price * product.Model.Quantity));
-
-                return $"Total Price: {TotalPrice:C}";
-            }
-        }
-
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
-            NotifyPropertyChanged(nameof(DisplayCartPrice));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
