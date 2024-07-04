@@ -165,6 +165,54 @@ namespace Shop.MAUI.ViewModels
                 return $"Buy 1 Get 1: {Model?.Bogo}";
             }
         }
+        public string MarkdownShopDisplay
+        {
+            get
+            {
+                if (Model != null)
+                    return $"{Math.Round((Model.Markdown * 100), 0)}% Off";
+
+                return string.Empty;
+            }
+        }
+        public bool IsMarkdownVisible
+        {
+            get
+            {
+                return Model?.Markdown != 0;
+            }
+        }
+        public bool IsBogoVisible
+        {
+            get
+            {
+                return Model?.Bogo == true;
+            }
+        }
+        public List<int> QuantityOptions
+        {
+            get
+            {
+                if (Model?.Quantity < 50)
+                    return Enumerable.Range(1, Model.Quantity).ToList();
+                else
+                    return Enumerable.Range(1, 50).ToList();
+            }
+        }
+
+        private int selectedQuantity;
+        public int SelectedQuantity
+        {
+            get { return selectedQuantity; }
+            set
+            {
+                if (selectedQuantity != value)
+                {
+                    selectedQuantity = value;
+                    NotifyPropertyChanged(nameof(SelectedQuantity));
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

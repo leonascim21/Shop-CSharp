@@ -29,7 +29,7 @@ public partial class ShopView : ContentPage
     private void AddToCart(object sender, EventArgs e)
     {
         var button = sender as Button;
-        ShopViewModel? product = button?.CommandParameter as ShopViewModel;
+        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
 
         if(product == null || product.Model == null) { return; }
 
