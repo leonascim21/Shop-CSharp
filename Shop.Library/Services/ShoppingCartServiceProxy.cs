@@ -13,7 +13,20 @@ namespace Shop.Library.Services
     {
         private static ShoppingCartServiceProxy? instance;
         private static object instanceLock = new object();
-        public ShoppingCart Cart;
+        public List<ShoppingCart> CartList;
+        
+        public int NextId { 
+            get 
+            {
+                if (!CartList.Any())
+                {
+                    return 1;
+                }
+
+                return CartList.Select(p => p.Id).Max() + 1;
+            } 
+        }
+        
 
         public static ShoppingCartServiceProxy Current
         {
@@ -31,16 +44,25 @@ namespace Shop.Library.Services
         }
 
         private ShoppingCartServiceProxy() 
-        { 
-            Cart = new ShoppingCart();
+        {
+            CartList = new List<ShoppingCart>();
+            AddCart("Shopping Cart");
         }
 
-        public void AddOrUpdateCart(Product product)
+        public void AddCart(string name)
         {
+            CartList.Add(new ShoppingCart(name, NextId));
+        }
+
+        public void AddOrUpdateCart(Product product, int CartId)
+        {
+
+            ShoppingCart? Cart = CartList.FirstOrDefault(c => c.Id == CartId);
+            if (Cart == null) return;
 
             Product? inventoryProduct  = InventoryServiceProxy.Current.Products
                 .FirstOrDefault(p => p.Id == product.Id);
-            if(inventoryProduct == null) { return; }
+            if(inventoryProduct == null) return; 
             
             Product? existingProduct = Cart.Contents?
                 .FirstOrDefault(p => p.Id == product.Id);
@@ -55,8 +77,11 @@ namespace Shop.Library.Services
             inventoryProduct.Quantity -= product.Quantity;
         }
 
-        public void RemoveFromCart(Product product)
+        public void RemoveFromCart(Product product, int CartId)
         {
+            ShoppingCart? Cart = CartList.FirstOrDefault(c => c.Id == CartId);
+            if (Cart == null) return;
+
             Product? inventoryProduct = InventoryServiceProxy.Current.Products
                 .FirstOrDefault(p => p.Id == product.Id);
             if (inventoryProduct != null) { inventoryProduct.Quantity += product.Quantity; }
@@ -67,9 +92,12 @@ namespace Shop.Library.Services
             Cart.Contents?.Remove(product);
         }
 
-        public void Checkout()
+        public void Checkout(int CartId)
         {
-            Cart = new ShoppingCart();
+            ShoppingCart? Cart = CartList.FirstOrDefault(c => c.Id == CartId);
+            if (Cart == null) return;
+
+            Cart?.Contents?.Clear();
         }
 
 

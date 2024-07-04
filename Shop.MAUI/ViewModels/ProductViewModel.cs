@@ -45,6 +45,7 @@ namespace Shop.MAUI.ViewModels
             NotifyPropertyChanged(nameof(MarkdownAsString));
         }
 
+        //ProductView / InventoryView
         public string PriceAsString
         {
             get
@@ -165,6 +166,8 @@ namespace Shop.MAUI.ViewModels
                 return $"Buy 1 Get 1: {Model?.Bogo}";
             }
         }
+
+        //ShopView
         public string MarkdownShopDisplay
         {
             get
@@ -199,7 +202,6 @@ namespace Shop.MAUI.ViewModels
                     return Enumerable.Range(1, 50).ToList();
             }
         }
-
         private int selectedQuantity;
         public int SelectedQuantity
         {
@@ -213,6 +215,7 @@ namespace Shop.MAUI.ViewModels
                 }
             }
         }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
