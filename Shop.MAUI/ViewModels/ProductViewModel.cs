@@ -228,7 +228,23 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                return $"{Model?.Price * Model?.Quantity:C}";
+                int quantity = Model.Quantity;
+                if(Model.Bogo)
+                {
+                    if (quantity % 2 == 0)
+                        quantity /= 2;
+                    else
+                        quantity = (quantity / 2) + 1;
+                }
+
+                decimal price = Model.Price * quantity;
+
+                if(Model.Markdown > 0)
+                {
+                    price *= (decimal)(1 - Model.Markdown);
+                }
+
+                return $"{price:C}";
             }
         }
 
