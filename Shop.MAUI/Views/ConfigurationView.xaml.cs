@@ -15,4 +15,10 @@ public partial class ConfigurationView : ContentPage
         Shell.Current.GoToAsync("//InventoryPage");
     }
 
+    private void SaveChanges(object sender, EventArgs e)
+    {
+        (BindingContext as ConfigurationViewModel).SaveChanges();
+        Shell.Current.GoToAsync("//InventoryPage");
+    }
+
 }

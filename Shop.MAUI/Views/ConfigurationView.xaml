@@ -23,17 +23,20 @@
 
             <Label Grid.Row="0" Grid.Column="0" 
                    Padding="5"
-                   Text="Tax Rate" 
+                   Text="Tax Rate (x.xx%)" 
                    FontAttributes="Bold"
                    VerticalOptions="Center"
                    TextColor="Black"/>
-            <Picker
+            <Entry
+                Text="{Binding TaxRateAsString}"
                 Grid.Row="0" Grid.Column="1" 
                 BackgroundColor="White" 
-                HorizontalOptions="FillAndExpand"/>
+                HorizontalOptions="FillAndExpand"
+                />
         </Grid>
 
         <Button Text="Save Changes" 
+                Clicked="SaveChanges"
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
                 TextColor="Black"/>

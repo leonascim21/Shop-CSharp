@@ -23,7 +23,7 @@ namespace Shop.Library.Services
             }
         }
         
-        public double TaxRate {  get; set; }
+        public double? TaxRate {  get; set; }
         private int NextId
         {
             get
