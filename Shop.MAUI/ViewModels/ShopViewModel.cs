@@ -50,12 +50,16 @@ namespace Shop.MAUI.ViewModels
         public void AddToCart(Product product)
         {
             ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
-            Refresh();
+            RefreshProducts();
         }
 
-        public void Refresh()
+        public void RefreshProducts()
         {
             NotifyPropertyChanged(nameof(Products));
+        }
+        public void RefreshCarts()
+        {
+            NotifyPropertyChanged(nameof(ShoppingCartList));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

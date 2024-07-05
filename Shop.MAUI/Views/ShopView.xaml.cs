@@ -27,7 +27,8 @@ public partial class ShopView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        (BindingContext as ShopViewModel)?.Refresh();
+        (BindingContext as ShopViewModel)?.RefreshProducts();
+        (BindingContext as ShopViewModel)?.RefreshCarts();
     }
 
     private void AddToCart(object sender, EventArgs e)
@@ -58,7 +59,6 @@ public partial class ShopView : ContentPage
     private void GoToAddShoppingCartPage(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//AddShoppingCartPage");
-        (BindingContext as ShopViewModel)?.Refresh();
     }
 
 }
