@@ -38,15 +38,16 @@
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" 
-                                        Span="5" 
-                                        HorizontalItemSpacing="10"
-                                        VerticalItemSpacing="10"/>
+                                     Span="5" 
+                                     HorizontalItemSpacing="10"
+                                     VerticalItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="White" BackgroundColor="LightGray" CornerRadius="10" Margin="10" Padding="10">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -63,7 +64,7 @@
                                 <Label Grid.Row="5" Text="{Binding MarkdownDisplay}" />
                                 <Label Grid.Row="6" Text="{Binding BogoDisplay}" />
 
-                                <StackLayout  Spacing="10" Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="End">
+                                <StackLayout  Spacing="10" Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="End">
                                     <ImageButton Source="pencil.png"
                                             Clicked="GoToEditProductPage"
                                             CommandParameter="{Binding .}"
