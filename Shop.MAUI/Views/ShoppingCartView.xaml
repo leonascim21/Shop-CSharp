@@ -36,7 +36,9 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Frame>
-            <Label Text="{Binding DisplaySubtotal}" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label Text="{Binding DisplaySubtotal}" HorizontalOptions="Center"/>
+            <Label Text="{Binding DisplayTax}" HorizontalOptions="Center"/>
+            <Label Text="{Binding DisplayTotal}" FontAttributes="Bold" HorizontalOptions="Center"/>
             <Button Text="Checkout"                  
                     Clicked="CheckoutCart"
                     MaximumWidthRequest="400"

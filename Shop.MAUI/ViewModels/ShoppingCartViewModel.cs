@@ -56,11 +56,36 @@ namespace Shop.MAUI.ViewModels
             } 
         }
 
+        public decimal CartTax
+        {
+            get
+            {
+                return CartSubtotal * (decimal)(InventoryServiceProxy.Current.TaxRate);
+            }
+        }
+
         public string DisplaySubtotal
         {
             get
             {
                 return $"Subtotal: {CartSubtotal:C}";
+            }
+        }
+
+        public string DisplayTax
+        {
+            get
+            {
+                double? taxRate = InventoryServiceProxy.Current.TaxRate * 100;
+                return $"Tax ({Math.Round((decimal)taxRate, 2)}%): {CartTax:C}";
+            }
+        }
+
+        public string DisplayTotal
+        {
+            get
+            {
+                return $"Total: {CartTax + CartSubtotal:C}";
             }
         }
 
@@ -88,6 +113,8 @@ namespace Shop.MAUI.ViewModels
         {
             NotifyPropertyChanged(nameof(Products));
             NotifyPropertyChanged(nameof(DisplaySubtotal));
+            NotifyPropertyChanged(nameof(DisplayTax));
+            NotifyPropertyChanged(nameof(DisplayTotal));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
