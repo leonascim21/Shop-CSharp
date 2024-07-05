@@ -15,6 +15,10 @@ public partial class InventoryView : ContentPage
     {
         Shell.Current.GoToAsync("//MainPage");
     }
+    private void GoToConfigurationPage(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//ConfigurationPage");
+    }
 
     private void GoToAddProductPage(object sender, EventArgs e)
     {
@@ -30,6 +34,7 @@ public partial class InventoryView : ContentPage
             Shell.Current.GoToAsync($"//ProductPage?productId={product.Model.Id}");
         }
     }
+
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {

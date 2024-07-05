@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Shop.MAUI.Views.AddShoppingCartView">
+             x:Class="Shop.MAUI.Views.ConfigurationView">
     <VerticalStackLayout
         Padding="100"
         Spacing="20">
 
-        <Label Text="Create New Cart"
+        <Label Text="Configurations"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 FontAttributes="Bold"
@@ -23,24 +23,23 @@
 
             <Label Grid.Row="0" Grid.Column="0" 
                    Padding="5"
-                   Text="Name" 
+                   Text="Tax Rate" 
                    FontAttributes="Bold"
                    VerticalOptions="Center"
                    TextColor="Black"/>
-            <Entry Text="{Binding Name}"
+            <Picker
                 Grid.Row="0" Grid.Column="1" 
                 BackgroundColor="White" 
                 HorizontalOptions="FillAndExpand"/>
         </Grid>
 
-        <Button Text="Add Cart" 
-                Clicked="CreateCart"
+        <Button Text="Save Changes" 
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
                 TextColor="Black"/>
 
         <Button Text="Back"
-                Clicked="GoToShopPage"
+                Clicked="GoToInventoryPage"
                 MaximumWidthRequest="200" 
                 BackgroundColor="#69C7B8"
                 TextColor="Black"/>

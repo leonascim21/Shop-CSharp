@@ -22,7 +22,8 @@ namespace Shop.Library.Services
                 return products.AsReadOnly();
             }
         }
-
+        
+        public double TaxRate {  get; set; }
         private int NextId
         {
             get
@@ -78,6 +79,7 @@ namespace Shop.Library.Services
                 new Product{Id = 9, Name = "Chicken Breast", Price=7.99M, Quantity=90, Description="Chicken breast"},
                 new Product{Id = 10, Name = "Ground Beef", Price=6.99M, Quantity=70, Description="1 lb of ground beef"},
             };
+            TaxRate = 0.07;
         }
 
         public static InventoryServiceProxy Current
