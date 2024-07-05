@@ -53,7 +53,6 @@ public partial class ShopView : ContentPage
         {
             (BindingContext as ShopViewModel)?.AddToCart(productToAdd);
         }
-        (BindingContext as ShopViewModel)?.Refresh();
     }
 
     private void GoToAddShoppingCartPage(object sender, EventArgs e)

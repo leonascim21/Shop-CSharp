@@ -56,7 +56,6 @@ namespace Shop.MAUI.ViewModels
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
-            NotifyPropertyChanged(nameof(ShoppingCartList));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
