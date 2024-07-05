@@ -75,7 +75,7 @@
                                        HorizontalOptions="End" 
                                        IsVisible="{Binding IsBogoVisible}"/>
                                 
-                                <Label Grid.Row="1" Text="{Binding MarkdownDisplay}" 
+                                <Label Grid.Row="1" Text="{Binding MarkdownShopDisplay}" 
                                        HorizontalOptions="End" 
                                        IsVisible="{Binding IsMarkdownVisible}"/>
 

@@ -44,6 +44,33 @@ namespace Shop.MAUI.ViewModels
                     .ToList() ?? new List<ProductViewModel>();
             }
         }
+
+        public decimal CartSubtotal { 
+            get
+            {
+                decimal Subtotal = Products.Where(p => p != null)
+                    .Aggregate(0m, (accumulator, product) => 
+                    accumulator + toDecimal(product.DisplayTotalItemPrice));
+
+                return Subtotal;
+            } 
+        }
+
+        public string DisplaySubtotal
+        {
+            get
+            {
+                return $"Subtotal: {CartSubtotal:C}";
+            }
+        }
+
+        private decimal toDecimal(string s)
+        {
+            string noDollarSign = s.Replace("$", "");
+            decimal.TryParse(noDollarSign, out var result);
+            return result;
+        }
+
         public void RemoveFromCart(ProductViewModel product)
         {
             Product ProductToRemove = product?.Model ?? new Product();
@@ -60,6 +87,7 @@ namespace Shop.MAUI.ViewModels
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
+            NotifyPropertyChanged(nameof(DisplaySubtotal));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
