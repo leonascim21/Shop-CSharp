@@ -9,7 +9,7 @@ namespace Shop.MAUI.ViewModels
 {
     internal class ConfigurationViewModel
     {
-        public double? TaxRate { get; set; }
+        public decimal? TaxRate { get; set; }
         public string? TaxRateAsString {
             set
             {
@@ -18,7 +18,7 @@ namespace Shop.MAUI.ViewModels
                     string noPercent = value.Replace("%", "");
                     if (double.TryParse(noPercent, out var taxRate))
                     {
-                        TaxRate = taxRate / 100;
+                        TaxRate = (decimal)(taxRate / 100);
                     }
                 }
             }
@@ -28,7 +28,7 @@ namespace Shop.MAUI.ViewModels
         {
             if (TaxRate != null)
             {
-                InventoryServiceProxy.Current.TaxRate = TaxRate;
+                InventoryServiceProxy.Current.TaxRate = (decimal)TaxRate;
             }
         }
     }

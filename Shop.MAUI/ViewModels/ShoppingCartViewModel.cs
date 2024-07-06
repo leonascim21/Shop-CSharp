@@ -60,7 +60,7 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                return CartSubtotal * (decimal)(InventoryServiceProxy.Current.TaxRate);
+                return CartSubtotal * InventoryServiceProxy.Current.TaxRate;
             }
         }
 
@@ -76,8 +76,8 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                double? taxRate = InventoryServiceProxy.Current.TaxRate * 100;
-                return $"Tax ({Math.Round((decimal)taxRate, 2)}%): {CartTax:C}";
+                decimal taxRate = InventoryServiceProxy.Current.TaxRate * 100;
+                return $"Tax ({Math.Round(taxRate, 2)}%): {CartTax:C}";
             }
         }
 
