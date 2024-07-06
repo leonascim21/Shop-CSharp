@@ -49,8 +49,11 @@ namespace Shop.MAUI.ViewModels
 
         public void AddToCart(Product product)
         {
-            ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
-            RefreshProducts();
+            if (selectedCart != null)
+            {
+                ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
+                RefreshProducts();
+            }
         }
 
         public void RefreshProducts()
