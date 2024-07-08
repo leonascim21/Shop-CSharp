@@ -23,12 +23,15 @@ namespace Shop.MAUI.ViewModels
 
         public void LoadCart(int cartId)
         {
-            CartId = cartId;
-            Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == cartId);
-            Refresh();
+            if (ShoppingCartServiceProxy.Current.CartList != null)
+            {
+                CartId = cartId;
+                Cart = ShoppingCartServiceProxy.Current.CartList.First(c => c.Id == cartId);
+                Refresh();
+            }
         }
 
-        public ShoppingCart? Cart { get; set; }
+        public ShoppingCart Cart { get; set; }
 
         public int CartId { get; set; }
 
