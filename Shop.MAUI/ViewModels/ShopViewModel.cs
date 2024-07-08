@@ -72,9 +72,16 @@ namespace Shop.MAUI.ViewModels
         {
             NotifyPropertyChanged(nameof(Products));
         }
+
+        private int CartCount { get; set; }
         public void RefreshCarts()
         {
-            NotifyPropertyChanged(nameof(ShoppingCartList));
+            if(CartCount < ShoppingCartList.Count)
+            {
+                NotifyPropertyChanged(nameof(ShoppingCartList));
+                CartCount = ShoppingCartList.Count;
+            }
+            
         }
         public void RefreshCartPrice()
         {
