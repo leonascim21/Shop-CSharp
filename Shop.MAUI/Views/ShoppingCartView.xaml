@@ -5,7 +5,7 @@
              NavigatedTo="ContentPage_NavigatedTo">
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="10">
-            <Label Text="Shopping Cart" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center"></Label>
+            <Label Text="{Binding Cart.Name}" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center"></Label>
             <Frame BorderColor="LightGray" CornerRadius="10" WidthRequest="600">
                 <ListView ItemsSource="{Binding Products}" HorizontalOptions="Center" WidthRequest="600" SelectionMode="None">
                     <ListView.ItemTemplate>

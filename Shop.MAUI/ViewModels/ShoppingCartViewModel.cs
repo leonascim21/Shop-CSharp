@@ -115,6 +115,7 @@ namespace Shop.MAUI.ViewModels
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));
+            NotifyPropertyChanged(nameof(Cart));
             NotifyPropertyChanged(nameof(DisplaySubtotal));
             NotifyPropertyChanged(nameof(DisplayTax));
             NotifyPropertyChanged(nameof(DisplayTotal));
