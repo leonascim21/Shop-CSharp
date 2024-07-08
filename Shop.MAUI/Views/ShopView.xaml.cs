@@ -29,6 +29,7 @@ public partial class ShopView : ContentPage
     {
         (BindingContext as ShopViewModel)?.RefreshProducts();
         (BindingContext as ShopViewModel)?.RefreshCarts();
+        (BindingContext as ShopViewModel)?.RefreshCartPrice();
     }
 
     private void AddToCart(object sender, EventArgs e)

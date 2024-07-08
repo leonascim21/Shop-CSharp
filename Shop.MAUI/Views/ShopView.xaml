@@ -29,6 +29,8 @@
                     HorizontalOptions="End"/>
                 <BoxView BackgroundColor="White" 
                     WidthRequest="50"/>
+                <Label Text="{Binding CartPrice}"
+                       VerticalOptions="Center"/>
                 <ImageButton Source="cart.png"
                     Clicked="GoToShoppingCartPage"
                     CornerRadius="10"

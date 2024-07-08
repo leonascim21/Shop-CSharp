@@ -33,6 +33,16 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
+        public string CartPrice
+        {
+            get
+            {
+                if (selectedCart == null) return "$0.00";
+
+                return $"{selectedCart.CartSubtotal:C}";
+            }
+        }
+
         private ShoppingCartViewModel? selectedCart;
         public ShoppingCartViewModel SelectedCart
         {
@@ -42,6 +52,7 @@ namespace Shop.MAUI.ViewModels
                 selectedCart = value;
                 CartId = selectedCart?.Cart?.Id ?? 0;
                 NotifyPropertyChanged();
+                RefreshCartPrice();
             }
         }
 
@@ -52,6 +63,7 @@ namespace Shop.MAUI.ViewModels
             if (selectedCart != null)
             {
                 ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
+                RefreshCartPrice();
                 RefreshProducts();
             }
         }
@@ -63,6 +75,14 @@ namespace Shop.MAUI.ViewModels
         public void RefreshCarts()
         {
             NotifyPropertyChanged(nameof(ShoppingCartList));
+        }
+        public void RefreshCartPrice()
+        {
+            if(selectedCart != null && selectedCart.Cart != null)
+            {
+                selectedCart.LoadCart(selectedCart.Cart.Id);
+            }
+            NotifyPropertyChanged(nameof(CartPrice));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
