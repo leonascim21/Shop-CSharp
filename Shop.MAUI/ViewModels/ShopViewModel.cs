@@ -62,7 +62,7 @@ namespace Shop.MAUI.ViewModels
 
         public void AddToCart()
         {
-            if (ProductToAdd!= null && ProductToAdd.Model != null)
+            if (ProductToAdd!= null && ProductToAdd.Model != null && CartId != 0)
             {   
                 int quantityToAdd = ProductToAdd.SelectedQuantity;
                 Product product = new Product(ProductToAdd.Model);
