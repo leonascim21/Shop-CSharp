@@ -25,7 +25,6 @@ public partial class ShoppingCartView : ContentPage
             LoadCart(cartId);
         }
     }
-
     private void LoadCart(int cartId)
     {
         var viewModel = BindingContext as ShoppingCartViewModel;
@@ -48,14 +47,8 @@ public partial class ShoppingCartView : ContentPage
 
     private void RemoveFromCart(object sender, EventArgs e)
     {
-        var button = sender as ImageButton;
-        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
-
-
-        if (product != null)
-        {
-                (BindingContext as ShoppingCartViewModel)?.RemoveFromCart(product);
-        }
+        (BindingContext as ShoppingCartViewModel).ProductToRemove = (sender as ImageButton).CommandParameter as ProductViewModel;
+        (BindingContext as ShoppingCartViewModel)?.RemoveFromCart();
         (BindingContext as ShoppingCartViewModel)?.Refresh();
     }
 

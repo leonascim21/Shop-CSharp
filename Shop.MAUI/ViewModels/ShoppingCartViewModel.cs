@@ -98,12 +98,15 @@ namespace Shop.MAUI.ViewModels
             decimal.TryParse(noDollarSign, out var result);
             return result;
         }
-
-        public void RemoveFromCart(ProductViewModel product)
+        
+        public ProductViewModel ProductToRemove { get; set; }
+        public void RemoveFromCart()
         {
-            Product ProductToRemove = product?.Model ?? new Product();
-            ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove, Cart.Id);
-            Refresh();
+            if(ProductToRemove.Model != null)
+            {
+                ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove.Model, Cart.Id);
+                Refresh();
+            }
         }
 
         public void Checkout()
