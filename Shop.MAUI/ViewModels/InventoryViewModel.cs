@@ -28,10 +28,14 @@ namespace Shop.MAUI.ViewModels
             NotifyPropertyChanged(nameof(Products));
         }
 
-        public void Remove(ProductViewModel product)
+        public ProductViewModel? ProductToRemove { get; set; }
+        public void Remove()
         {
-            InventoryServiceProxy.Current.Remove(product.Model ?? new Product());
-            Refresh();
+            if (ProductToRemove != null)
+            {
+                InventoryServiceProxy.Current.Remove(ProductToRemove.Model ?? new Product());
+                Refresh();
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -43,12 +43,8 @@ public partial class InventoryView : ContentPage
 
     private void DeleteProduct(object sender, EventArgs e)
     {
-        var button = sender as ImageButton;
-        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
-        if (product != null)
-        {
-            (BindingContext as InventoryViewModel)?.Remove(product);
-        }
+        (BindingContext as InventoryViewModel).ProductToRemove = (sender as ImageButton).CommandParameter as ProductViewModel;
+        (BindingContext as InventoryViewModel)?.Remove();
         (BindingContext as InventoryViewModel)?.Refresh();
     }
 }
