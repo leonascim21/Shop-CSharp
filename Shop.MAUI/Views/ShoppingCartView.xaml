@@ -6,8 +6,8 @@
     <ScrollView>
         <VerticalStackLayout Spacing="15" Padding="10">
             <Label Text="{Binding Cart.Name}" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center"></Label>
-            <Frame BorderColor="LightGray" CornerRadius="10" WidthRequest="820">
-                <ListView ItemsSource="{Binding Products}" HorizontalOptions="Center" WidthRequest="820" SelectionMode="None">
+            <Frame BorderColor="LightGray" CornerRadius="10" WidthRequest="900">
+                <ListView ItemsSource="{Binding Products}" HorizontalOptions="Center" WidthRequest="900" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -18,7 +18,7 @@
                                         <ColumnDefinition Width="150"/>
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="280"/>
                                     </Grid.ColumnDefinitions>
                                     <ImageButton Grid.Column="0" 
                                                  Source="x.png" 
