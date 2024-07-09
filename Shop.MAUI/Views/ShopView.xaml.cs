@@ -34,27 +34,8 @@ public partial class ShopView : ContentPage
 
     private void AddToCart(object sender, EventArgs e)
     {
-        var button = sender as Button;
-        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
-
-        if(product == null || product.Model == null) { return; }
-
-
-        Product productToAdd = new Product
-        {
-            Id = product.Model.Id,
-            Name = product.Model.Name ?? string.Empty,
-            Description = product.Model.Description ?? string.Empty,
-            Price = product.Model.Price,
-            Quantity = product.SelectedQuantity,
-            Bogo = product.Model.Bogo,
-            Markdown = product.Model.Markdown
-        };
-
-        if (productToAdd != null)
-        {
-            (BindingContext as ShopViewModel)?.AddToCart(productToAdd);
-        }
+        (BindingContext as ShopViewModel).ProductToAdd =  (sender as Button)?.CommandParameter as ProductViewModel;
+        (BindingContext as ShopViewModel)?.AddToCart();
     }
 
     private void GoToAddShoppingCartPage(object sender, EventArgs e)

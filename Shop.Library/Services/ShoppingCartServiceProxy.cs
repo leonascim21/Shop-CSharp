@@ -63,7 +63,8 @@ namespace Shop.Library.Services
             Product? inventoryProduct  = InventoryServiceProxy.Current.Products
                 .FirstOrDefault(p => p.Id == product.Id);
             if(inventoryProduct == null) return; 
-            
+            if(inventoryProduct.Quantity < product.Quantity)  return;
+
             Product? existingProduct = Cart.Contents?
                 .FirstOrDefault(p => p.Id == product.Id);
             if(existingProduct != null)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 
 namespace Shop_CSharp.Models
@@ -12,6 +14,16 @@ namespace Shop_CSharp.Models
 
         public Product() { }
 
+        public Product(Product p) 
+        {
+            Name = p.Name;
+            Description = p.Description;
+            Price = p.Price;
+            Id = p.Id;
+            Quantity = p.Quantity;
+            Markdown = p.Markdown;
+            Bogo = p.Bogo;
+        }
         public Product(string name, string description, decimal price, int quantity, double markdown=0, bool bogo=false)
         {
             Name = name;
