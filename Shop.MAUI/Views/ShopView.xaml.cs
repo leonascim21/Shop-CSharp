@@ -18,7 +18,7 @@ public partial class ShopView : ContentPage
     }
     private void GoToShoppingCartPage(object sender, EventArgs e)
     {
-        if ((BindingContext as ShopViewModel)?.SelectedCart.Cart != null)
+        if ((BindingContext as ShopViewModel)?.SelectedCart.Cart.Id != 0)
         {
             int cartId = (BindingContext as ShopViewModel).SelectedCart.Cart.Id;
             Shell.Current.GoToAsync($"//ShoppingCartPage?CartId={cartId}");

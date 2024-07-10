@@ -13,12 +13,22 @@ namespace Shop.MAUI.ViewModels
 {
     internal class ShoppingCartViewModel : INotifyPropertyChanged
     {
-        public ShoppingCartViewModel(int cartId = 1)
+        public ShoppingCartViewModel(int cartId = 0)
         {
 
-            Cart = ShoppingCartServiceProxy.Current.CartList.First(c => c.Id == cartId);
-            Refresh();
+            ShoppingCart? cart =  ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == cartId);
+            if (cart == null)
+            {
+                Cart = new ShoppingCart();
+                return;
+            }
+            else
+            {
+                Cart = cart;
+                Refresh();
+            }
         }
+
         public ShoppingCartViewModel(ShoppingCart c)
         {
             Cart = c;
