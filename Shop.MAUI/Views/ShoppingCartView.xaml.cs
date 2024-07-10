@@ -6,34 +6,12 @@ namespace Shop.MAUI.Views;
 [QueryProperty(nameof(CartId), "CartId")]
 public partial class ShoppingCartView : ContentPage
 {
-	public ShoppingCartView()
+    public int CartId { get; set; }
+    public ShoppingCartView()
 	{
         InitializeComponent();
-		BindingContext = new ShoppingCartViewModel();
-	}
 
-    private int cartId;
-    public int CartId
-    {
-        get
-        {
-          return cartId;
-        }
-        set
-        {
-            cartId = value;
-            LoadCart(cartId);
-        }
-    }
-    private void LoadCart(int cartId)
-    {
-        var viewModel = BindingContext as ShoppingCartViewModel;
-        if (viewModel != null)
-        {
-            viewModel.LoadCart(cartId);
-            viewModel.Refresh();
-        }
-    }
+	}
 
     private void GoToShopPage(object sender, EventArgs e)
     {
@@ -42,7 +20,7 @@ public partial class ShoppingCartView : ContentPage
 
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-            (BindingContext as ShoppingCartViewModel)?.Refresh();
+            BindingContext = new ShoppingCartViewModel(CartId);
     }
 
     private void RemoveFromCart(object sender, EventArgs e)

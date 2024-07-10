@@ -13,39 +13,47 @@ namespace Shop.MAUI.ViewModels
 {
     internal class ShoppingCartViewModel : INotifyPropertyChanged
     {
-        public ShoppingCartViewModel()
+        public ShoppingCartViewModel(int cartId = 1)
         {
+
+            Cart = ShoppingCartServiceProxy.Current.CartList.First(c => c.Id == cartId);
+            Refresh();
         }
         public ShoppingCartViewModel(ShoppingCart c)
         {
             Cart = c;
         }
 
-        public void LoadCart(int cartId)
-        {
-            if (ShoppingCartServiceProxy.Current.CartList != null)
-            {
-                CartId = cartId;
-                Cart = ShoppingCartServiceProxy.Current.CartList.First(c => c.Id == cartId);
-                Refresh();
-            }
-        }
-
         public ShoppingCart Cart { get; set; }
 
-        public int CartId { get; set; }
 
         public List<ProductViewModel> Products
         {
             get
             {
-                ShoppingCart? Cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == CartId);
+                ShoppingCart? cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == Cart.Id);
 
-                return Cart?.Contents?
+                return cart?.Contents?
                     .Where(p => p != null)
                     .Select(p => new ProductViewModel(p))
                     .ToList() ?? new List<ProductViewModel>();
             }
+        }
+
+        public ProductViewModel? ProductToRemove { get; set; }
+        public void RemoveFromCart()
+        {
+            if (ProductToRemove != null && ProductToRemove.Model != null)
+            {
+                ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove.Model, Cart.Id);
+                Refresh();
+            }
+        }
+
+        public void Checkout()
+        {
+            ShoppingCartServiceProxy.Current.Checkout(Cart.Id);
+            Refresh();
         }
 
         public decimal CartSubtotal { 
@@ -99,22 +107,6 @@ namespace Shop.MAUI.ViewModels
             return result;
         }
         
-        public ProductViewModel ProductToRemove { get; set; }
-        public void RemoveFromCart()
-        {
-            if(ProductToRemove.Model != null)
-            {
-                ShoppingCartServiceProxy.Current.RemoveFromCart(ProductToRemove.Model, Cart.Id);
-                Refresh();
-            }
-        }
-
-        public void Checkout()
-        {
-            ShoppingCartServiceProxy.Current.Checkout(Cart.Id);
-            Refresh();
-        }
-
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Products));

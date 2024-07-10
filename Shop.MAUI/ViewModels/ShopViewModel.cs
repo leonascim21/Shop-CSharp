@@ -91,10 +91,6 @@ namespace Shop.MAUI.ViewModels
         }
         public void RefreshCartPrice()
         {
-            if(selectedCart != null && selectedCart.Cart != null)
-            {
-                selectedCart.LoadCart(selectedCart.Cart.Id);
-            }
             NotifyPropertyChanged(nameof(CartPrice));
         }
 
