@@ -27,12 +27,8 @@ public partial class InventoryView : ContentPage
 
     private void GoToEditProductPage(object sender, EventArgs e)
     {
-        var button = sender as ImageButton;
-        ProductViewModel? product = button?.CommandParameter as ProductViewModel;
-        if (product?.Model != null)
-        {
-            Shell.Current.GoToAsync($"//ProductPage?productId={product.Model.Id}");
-        }
+        ProductViewModel? product = (sender as ImageButton)?.CommandParameter as ProductViewModel;
+        Shell.Current.GoToAsync($"//ProductPage?productId={product.Model.Id}");
     }
 
 

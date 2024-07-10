@@ -9,22 +9,24 @@ namespace Shop.MAUI.ViewModels
     {
         public Product? Model { get; set; }
 
-        public int ProductId { get; set; }
-
-        public ProductViewModel()
+        public ProductViewModel(int productId = 0)
         {
-            Model = new Product();
+            if (productId == 0)
+            {
+                Model = new Product();
+            }
+            else
+            {
+                Model = InventoryServiceProxy
+                    .Current
+                    .Products.FirstOrDefault(p => p.Id == productId)
+                    ?? new Product();
+            }
         }
 
         public ProductViewModel(Product? p)
         {
             Model = p ?? new Product();
-        }
-
-        public void FindProduct()
-        {
-            Model = InventoryServiceProxy.Current.Products
-                .FirstOrDefault(p => p.Id == ProductId) ?? new Product();
         }
 
         public void Save()

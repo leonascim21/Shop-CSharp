@@ -1,29 +1,21 @@
 using Shop.MAUI.ViewModels;
+using Shop_CSharp.Models;
 
 namespace Shop.MAUI.Views;
 
 [QueryProperty(nameof(ProductId), "productId")]
 public partial class ProductView : ContentPage
 {
+    public int ProductId { get; set; } 
     public ProductView()
     {
         InitializeComponent();
-        BindingContext = new ProductViewModel();
+        this.NavigatedTo += ContentPage_NavigatedTo;
     }
 
-    public int ProductId
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        get
-        {
-            return (BindingContext as ProductViewModel)?.ProductId ?? 0;
-        }
-        set
-        {
-            ProductViewModel viewModel = new ProductViewModel();
-            viewModel.ProductId = value;
-            viewModel.FindProduct();
-            BindingContext = viewModel;
-        }
+        BindingContext = new ProductViewModel(ProductId);
     }
 
     private void GoToInventoryPage(object sender, EventArgs e)
@@ -33,11 +25,7 @@ public partial class ProductView : ContentPage
 
     public void SaveProduct(object sender, EventArgs e)
     {
-        var product = BindingContext as ProductViewModel;
-        if (product != null)
-        {
-            product.Save();
-            Shell.Current.GoToAsync("//InventoryPage");
-        }
+        (BindingContext as ProductViewModel)?.Save();
+        Shell.Current.GoToAsync("//InventoryPage");
     }
 }
