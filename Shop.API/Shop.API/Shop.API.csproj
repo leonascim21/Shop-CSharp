@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Shop.Library">
+      <HintPath>..\..\Shop.Library\bin\Debug\net8.0\Shop.Library.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
