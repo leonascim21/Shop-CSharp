@@ -89,10 +89,5 @@ namespace Shop.Library.Services
                 return instance;
             }
         }
-
-
-
-
-
     }
 }
