@@ -22,7 +22,7 @@ namespace Shop.API.EC
             if (p.Id == 0)
             {
                isAdd = true;
-                p.Id = FakeDatabase.NextId;
+                p.Id = FakeDatabase.NextProductId;
             }
 
             if (isAdd)
