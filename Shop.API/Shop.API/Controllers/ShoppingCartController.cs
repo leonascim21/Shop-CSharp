@@ -20,5 +20,11 @@ namespace Shop.API.Controllers
         {
             return await new ShoppingCartEC().Get();
         }
+
+        [HttpPost()]
+        public async void Post([FromBody] string name)
+        {
+            new ShoppingCartEC().Post(name);
+        }
     }
 }

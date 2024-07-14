@@ -14,5 +14,10 @@ namespace Shop.API.EC
         {
             return FakeDatabase.ShoppingCarts;
         }
+
+        public async void Post(string name)
+        {
+            FakeDatabase.ShoppingCarts.Add(new ShoppingCart(name, FakeDatabase.NextCartId));
+        }
     }
 }

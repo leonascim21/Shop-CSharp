@@ -47,8 +47,7 @@ namespace Shop.Library.Services
         private ShoppingCartServiceProxy() 
         {
             Get();
-            //cartList = new List<ShoppingCart>();
-            //AddCart("Shopping Cart");
+            AddCart("Shopping Cart");
         }
 
         public void Get()
@@ -59,7 +58,7 @@ namespace Shop.Library.Services
 
         public void AddCart(string name)
         {
-            //cartList.Add(new ShoppingCart(name, NextId));
+            new WebRequestHandler().Post("/ShoppingCart", name);
         }
 
         public void AddOrUpdateCart(Product product, int CartId)
