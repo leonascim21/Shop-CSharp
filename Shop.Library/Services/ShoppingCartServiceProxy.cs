@@ -49,10 +49,13 @@ namespace Shop.Library.Services
             Get();
         }
 
-        public void Get()
+        public async Task<bool>Get()
         {
             var response = new WebRequestHandler().Get("/ShoppingCart").Result;
+            if(response == null) { return false; }
+
             cartList = JsonConvert.DeserializeObject<List<ShoppingCart>>(response);
+            return true;
         }
 
         public void AddCart(string name)
@@ -66,19 +69,10 @@ namespace Shop.Library.Services
             return product;
         }
 
-        public void RemoveFromCart(Product product, int CartId)
+        public async Task<Product> RemoveFromCart(Product product, int CartId)
         {
-            ShoppingCart? Cart = cartList.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return;
-
-            Product? inventoryProduct = InventoryServiceProxy.Current.Products
-                .FirstOrDefault(p => p.Id == product.Id);
-            if (inventoryProduct != null) { inventoryProduct.Quantity += product.Quantity; }
-
-            Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == product.Id);
-            if (existingProduct == null) { return; }
-
-            Cart.Contents?.Remove(product);
+            new WebRequestHandler().Delete($"/ShoppingCart/{CartId}/{product.Id}");
+            return product;
         }
 
         public void Checkout(int CartId)

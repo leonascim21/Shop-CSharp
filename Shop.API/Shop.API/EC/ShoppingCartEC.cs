@@ -1,4 +1,5 @@
-﻿using Shop.API.Database;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.API.Database;
 using Shop.Library.Models;
 using Shop.Library.Services;
 using Shop_CSharp.Models;
@@ -21,27 +22,39 @@ namespace Shop.API.EC
             FakeDatabase.ShoppingCarts.Add(new ShoppingCart(name, FakeDatabase.NextCartId));
         }
 
-        public async Task<Product> AddToCart(int CartId, Product product)
+        public async void AddToCart(int CartId, Product product)
         {
             ShoppingCart? Cart = FakeDatabase.ShoppingCarts.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return new Product();
+            if (Cart == null) return;
 
             Product? inventoryProduct = FakeDatabase.Products.FirstOrDefault(p => p.Id == product.Id);
-            if (inventoryProduct == null) return new Product();
-            if (inventoryProduct.Quantity < product.Quantity) return new Product();
+            if (inventoryProduct == null) return;
+            if (inventoryProduct.Quantity < product.Quantity) return;
 
             Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == product.Id);
             if (existingProduct != null)
             {
                 existingProduct.Quantity += product.Quantity;
                 inventoryProduct.Quantity -= product.Quantity;
-                return new Product();
+                return;
             }
 
             Cart.Contents?.Add(product);
             inventoryProduct.Quantity -= product.Quantity;
-            return product;
+        }
 
+        public async void RemoveFromCart(int CartId, int ProductId)
+        {
+            ShoppingCart? Cart = FakeDatabase.ShoppingCarts.FirstOrDefault(c => c.Id == CartId);
+            if (Cart == null) return;
+
+            Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == ProductId);
+            if (existingProduct == null) { return; }
+
+            Product? inventoryProduct = FakeDatabase.Products.FirstOrDefault(p => p.Id == ProductId);
+            if (inventoryProduct != null) { inventoryProduct.Quantity += existingProduct.Quantity; }
+
+            Cart.Contents?.Remove(existingProduct);
         }
     }
 }

@@ -29,10 +29,15 @@ namespace Shop.API.Controllers
         }
 
         [HttpPost("/ShoppingCart/{CartId}")]
-        public async Task<Product> AddToCart(int CartId, [FromBody] Product product)
+        public async void AddToCart(int CartId, [FromBody] Product product)
         {
             new ShoppingCartEC().AddToCart(CartId, product);
-            return product;
+        }
+
+        [HttpDelete("/ShoppingCart/{CartId}/{ProductId}")]
+        public async void RemoveFromCart(int CartId, int ProductId)
+        {
+            new ShoppingCartEC().RemoveFromCart(CartId, ProductId);
         }
     }
 }
