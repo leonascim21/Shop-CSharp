@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.API.EC;
 using Shop.Library.Models;
+using Shop_CSharp.Models;
 
 namespace Shop.API.Controllers
 {
@@ -25,6 +26,13 @@ namespace Shop.API.Controllers
         public async void Post([FromBody] string name)
         {
             new ShoppingCartEC().Post(name);
+        }
+
+        [HttpPost("/ShoppingCart/{CartId}")]
+        public async Task<Product> AddToCart(int CartId, [FromBody] Product product)
+        {
+            new ShoppingCartEC().AddToCart(CartId, product);
+            return product;
         }
     }
 }

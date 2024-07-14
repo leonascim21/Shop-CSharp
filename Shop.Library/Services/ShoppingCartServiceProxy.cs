@@ -47,7 +47,6 @@ namespace Shop.Library.Services
         private ShoppingCartServiceProxy() 
         {
             Get();
-            AddCart("Shopping Cart");
         }
 
         public void Get()
@@ -61,28 +60,10 @@ namespace Shop.Library.Services
             new WebRequestHandler().Post("/ShoppingCart", name);
         }
 
-        public void AddOrUpdateCart(Product product, int CartId)
+        public async Task<Product> AddOrUpdateCart(Product product, int CartId)
         {
-
-            ShoppingCart? Cart = cartList.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return;
-
-            Product? inventoryProduct = InventoryServiceProxy.Current.Products
-                .FirstOrDefault(p => p.Id == product.Id);
-            if (inventoryProduct == null) return;
-            if (inventoryProduct.Quantity < product.Quantity) return;
-
-            Product? existingProduct = Cart.Contents?
-                .FirstOrDefault(p => p.Id == product.Id);
-            if (existingProduct != null)
-            {
-                existingProduct.Quantity += product.Quantity;
-                inventoryProduct.Quantity -= product.Quantity;
-                return;
-            }
-
-            Cart.Contents?.Add(product);
-            inventoryProduct.Quantity -= product.Quantity;
+            await new WebRequestHandler().Post($"/ShoppingCart/{CartId}", product);
+            return product;
         }
 
         public void RemoveFromCart(Product product, int CartId)

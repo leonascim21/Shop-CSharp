@@ -22,6 +22,7 @@ namespace Shop.API.Database
             }.Take(100).ToList();
 
             ShoppingCarts = new List<ShoppingCart>();
+            ShoppingCarts.Add(new ShoppingCart("Shopping Cart", 1));
         }
 
         public static List<Product> Products { get; } 
