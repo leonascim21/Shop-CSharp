@@ -33,20 +33,18 @@ namespace Shop.Library.Services
             return p;
         }
 
-        public void Remove(Product p)
+        public async void Remove(Product p)
         {
-            products.Remove(p);
+            await new WebRequestHandler().Delete($"/Inventory/{p.Id}");
         }
 
         private InventoryServiceProxy()
         {
             TaxRate = 0.07m;
-
-            var response = new WebRequestHandler().Get("/Inventory").Result;
-            products = JsonConvert.DeserializeObject<List<Product>>(response);
+            Get();
         }
 
-        public void GetProducts()
+        public void Get()
         {
             var response = new WebRequestHandler().Get("/Inventory").Result;
             products = JsonConvert.DeserializeObject<List<Product>>(response);

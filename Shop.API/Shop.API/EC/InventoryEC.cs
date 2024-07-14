@@ -31,7 +31,7 @@ namespace Shop.API.EC
             }
             else
             {
-                Product ProductToEdit = FakeDatabase.Products.First(prod => prod.Id == p.Id);
+                Product? ProductToEdit = FakeDatabase.Products.FirstOrDefault(prod => prod.Id == p.Id);
                 if (ProductToEdit != null)
                 {
                     ProductToEdit.Name = p.Name;
@@ -42,8 +42,17 @@ namespace Shop.API.EC
                     ProductToEdit.Bogo = p.Bogo;
                 }
             }
-            
             return p;
+        }
+
+        public async Task<Product> Delete (int Id)
+        {
+            Product? ProductToDelete = FakeDatabase.Products.FirstOrDefault(prod => prod.Id == Id);
+            if(ProductToDelete != null)
+            {
+                FakeDatabase.Products.Remove(ProductToDelete);
+            }
+            return ProductToDelete ?? new Product();
         }
     }
 }

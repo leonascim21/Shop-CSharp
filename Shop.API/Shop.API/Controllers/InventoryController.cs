@@ -26,5 +26,11 @@ namespace Shop.API.Controllers
         {
             return await new InventoryEC().Post(p);
         }
+
+        [HttpDelete("/Inventory/{id}")]
+        public async Task<Product> Delete(int Id)
+        {
+            return await new InventoryEC().Delete(Id);
+        }
     }
 }
