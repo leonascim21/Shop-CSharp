@@ -16,10 +16,15 @@ namespace Shop.API.Controllers
         }
 
         [HttpGet()]
-
         public async Task<IEnumerable<Product>> Get()
         {
             return await new InventoryEC().Get();
+        }
+
+        [HttpPost()]
+        public async Task<Product> Post([FromBody] Product p)
+        {
+            return await new InventoryEC().Post(p);
         }
     }
 }

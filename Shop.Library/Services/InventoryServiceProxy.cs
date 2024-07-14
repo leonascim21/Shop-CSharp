@@ -26,39 +26,10 @@ namespace Shop.Library.Services
         }
         
         public decimal TaxRate {  get; set; }
-        private int NextId
+
+        public async Task<Product> AddOrUpdate(Product p)
         {
-            get
-            {
-                if (!products.Any())
-                {
-                    return 1;
-                }
-
-                return products.Select(p => p.Id).Max() + 1;
-            }
-        }
-
-        public Product AddOrUpdate(Product p)
-        {
-            bool isAdd = false;
-            if (p.Id == 0)
-            {
-                isAdd = true;
-                p.Id = NextId;
-            }
-
-            if (isAdd)
-            {
-                products.Add(p);
-            }
-
-            else
-            {
-                Product ProductToEdit = Current.Products.First(prod => prod.Id == p.Id);
-                ProductToEdit = p;
-            }
-
+            await new WebRequestHandler().Post("/Inventory", p);
             return p;
         }
 
@@ -71,6 +42,12 @@ namespace Shop.Library.Services
         {
             TaxRate = 0.07m;
 
+            var response = new WebRequestHandler().Get("/Inventory").Result;
+            products = JsonConvert.DeserializeObject<List<Product>>(response);
+        }
+
+        public void GetProducts()
+        {
             var response = new WebRequestHandler().Get("/Inventory").Result;
             products = JsonConvert.DeserializeObject<List<Product>>(response);
         }
