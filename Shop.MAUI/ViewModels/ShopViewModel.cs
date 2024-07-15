@@ -83,13 +83,12 @@ namespace Shop.MAUI.ViewModels
         private int CartCount { get; set; }
         public void RefreshCarts()
         {
-            if(CartCount < ShoppingCartList.Count)
+            ShoppingCartServiceProxy.Current.Get();
+            if (CartCount < ShoppingCartList.Count)
             {
-                ShoppingCartServiceProxy.Current.Get();
                 NotifyPropertyChanged(nameof(ShoppingCartList));
                 CartCount = ShoppingCartList.Count;
-            }
-            
+            }   
         }
         public void RefreshCartPrice()
         {
