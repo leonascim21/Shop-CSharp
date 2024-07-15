@@ -49,13 +49,10 @@ namespace Shop.Library.Services
             Get();
         }
 
-        public async Task<bool>Get()
+        public void Get()
         {
             var response = new WebRequestHandler().Get("/ShoppingCart").Result;
-            if(response == null) { return false; }
-
             cartList = JsonConvert.DeserializeObject<List<ShoppingCart>>(response);
-            return true;
         }
 
         public void AddCart(string name)

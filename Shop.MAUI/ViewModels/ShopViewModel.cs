@@ -81,11 +81,11 @@ namespace Shop.MAUI.ViewModels
         }
 
         private int CartCount { get; set; }
-        public async void RefreshCarts()
+        public void RefreshCarts()
         {
             if(CartCount < ShoppingCartList.Count)
             {
-                await ShoppingCartServiceProxy.Current.Get();
+                ShoppingCartServiceProxy.Current.Get();
                 NotifyPropertyChanged(nameof(ShoppingCartList));
                 CartCount = ShoppingCartList.Count;
             }

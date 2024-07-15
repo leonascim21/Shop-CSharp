@@ -15,7 +15,7 @@ public partial class AddShoppingCartView : ContentPage
 
     public void CreateCart(object sender, EventArgs e)
     {
-        (BindingContext as AddShoppingCartViewModel).CreateCart();
+        (BindingContext as AddShoppingCartViewModel)?.CreateCart();
         Shell.Current.GoToAsync("//ShopPage");
     }
 
