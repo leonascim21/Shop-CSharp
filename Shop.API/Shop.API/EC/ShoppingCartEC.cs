@@ -56,5 +56,12 @@ namespace Shop.API.EC
 
             Cart.Contents?.Remove(existingProduct);
         }
+        public async void Checkout(int CartId)
+        {
+            ShoppingCart? Cart = FakeDatabase.ShoppingCarts.FirstOrDefault(c => c.Id == CartId);
+            if (Cart == null) return;
+
+            Cart?.Contents?.Clear();
+        }
     }
 }

@@ -74,10 +74,7 @@ namespace Shop.Library.Services
 
         public void Checkout(int CartId)
         {
-            ShoppingCart? Cart = cartList.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return;
-
-            Cart?.Contents?.Clear();
+            new WebRequestHandler().Delete($"/ShoppingCart/Checkout/{CartId}");
         }
 
 

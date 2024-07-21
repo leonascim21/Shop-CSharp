@@ -39,5 +39,11 @@ namespace Shop.API.Controllers
         {
             new ShoppingCartEC().RemoveFromCart(CartId, ProductId);
         }
+
+        [HttpDelete("/ShoppingCart/Checkout/{CartId}")]
+        public async void Checkout(int CartId)
+        {
+            new ShoppingCartEC().Checkout(CartId);
+        }
     }
 }
