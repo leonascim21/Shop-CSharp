@@ -41,7 +41,8 @@ namespace Shop.MAUI.ViewModels
         {
             get
             {
-                ShoppingCart? cart = ShoppingCartServiceProxy.Current.CartList.FirstOrDefault(c => c.Id == Cart.Id);
+                ShoppingCart? cart = ShoppingCartServiceProxy.Current
+                    .CartList.FirstOrDefault(c => c.Id == Cart.Id);
 
                 return cart?.Contents?
                     .Where(p => p != null)
@@ -119,6 +120,7 @@ namespace Shop.MAUI.ViewModels
         
         public void Refresh()
         {
+            ShoppingCartServiceProxy.Current.Get();
             NotifyPropertyChanged(nameof(Products));
             NotifyPropertyChanged(nameof(Cart));
             NotifyPropertyChanged(nameof(DisplaySubtotal));

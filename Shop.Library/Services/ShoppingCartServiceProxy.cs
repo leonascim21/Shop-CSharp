@@ -1,10 +1,14 @@
-﻿using Shop.Library.Models;
+﻿using Newtonsoft.Json;
+using Shop.Library.Models;
+using Shop.Library.Utilities;
 using Shop_CSharp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Shop.Library.Services
@@ -13,19 +17,16 @@ namespace Shop.Library.Services
     {
         private static ShoppingCartServiceProxy? instance;
         private static object instanceLock = new object();
-        public List<ShoppingCart> CartList;
-        
-        public int NextId { 
-            get 
-            {
-                if (!CartList.Any())
-                {
-                    return 1;
-                }
 
-                return CartList.Select(p => p.Id).Max() + 1;
-            } 
+        private List<ShoppingCart> cartList;
+        public ReadOnlyCollection<ShoppingCart> CartList 
+        { 
+            get
+            {
+                return cartList.AsReadOnly();
+            }
         }
+
         
 
         public static ShoppingCartServiceProxy Current
@@ -45,60 +46,35 @@ namespace Shop.Library.Services
 
         private ShoppingCartServiceProxy() 
         {
-            CartList = new List<ShoppingCart>();
-            AddCart("Shopping Cart");
+            Get();
+        }
+
+        public void Get()
+        {
+            var response = new WebRequestHandler().Get("/ShoppingCart").Result;
+            cartList = JsonConvert.DeserializeObject<List<ShoppingCart>>(response);
         }
 
         public void AddCart(string name)
         {
-            CartList.Add(new ShoppingCart(name, NextId));
+            new WebRequestHandler().Post("/ShoppingCart", name);
         }
 
-        public void AddOrUpdateCart(Product product, int CartId)
+        public async Task<Product> AddOrUpdateCart(Product product, int CartId)
         {
-
-            ShoppingCart? Cart = CartList.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return;
-
-            Product? inventoryProduct  = InventoryServiceProxy.Current.Products
-                .FirstOrDefault(p => p.Id == product.Id);
-            if(inventoryProduct == null) return; 
-            if(inventoryProduct.Quantity < product.Quantity)  return;
-
-            Product? existingProduct = Cart.Contents?
-                .FirstOrDefault(p => p.Id == product.Id);
-            if(existingProduct != null)
-            {
-                existingProduct.Quantity += product.Quantity;
-                inventoryProduct.Quantity -= product.Quantity;
-                return;
-            }
-
-            Cart.Contents?.Add(product);
-            inventoryProduct.Quantity -= product.Quantity;
+            await new WebRequestHandler().Post($"/ShoppingCart/{CartId}", product);
+            return product;
         }
 
-        public void RemoveFromCart(Product product, int CartId)
+        public async Task<Product> RemoveFromCart(Product product, int CartId)
         {
-            ShoppingCart? Cart = CartList.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return;
-
-            Product? inventoryProduct = InventoryServiceProxy.Current.Products
-                .FirstOrDefault(p => p.Id == product.Id);
-            if (inventoryProduct != null) { inventoryProduct.Quantity += product.Quantity; }
-
-            Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == product.Id);
-            if (existingProduct == null) { return;}
-
-            Cart.Contents?.Remove(product);
+            new WebRequestHandler().Delete($"/ShoppingCart/{CartId}/{product.Id}");
+            return product;
         }
 
         public void Checkout(int CartId)
         {
-            ShoppingCart? Cart = CartList.FirstOrDefault(c => c.Id == CartId);
-            if (Cart == null) return;
-
-            Cart?.Contents?.Clear();
+            new WebRequestHandler().Delete($"/ShoppingCart/Checkout/{CartId}");
         }
 
 

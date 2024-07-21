@@ -25,6 +25,7 @@ namespace Shop.MAUI.ViewModels
 
         public void Refresh()
         {
+            InventoryServiceProxy.Current.Get();
             NotifyPropertyChanged(nameof(Products));
         }
 

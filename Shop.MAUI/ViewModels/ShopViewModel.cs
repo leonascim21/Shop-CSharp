@@ -60,7 +60,7 @@ namespace Shop.MAUI.ViewModels
 
         public ProductViewModel? ProductToAdd { get; set; }
 
-        public void AddToCart()
+        public async void AddToCart()
         {
             if (ProductToAdd!= null && ProductToAdd.Model != null && CartId != 0)
             {   
@@ -68,7 +68,7 @@ namespace Shop.MAUI.ViewModels
                 Product product = new Product(ProductToAdd.Model);
                 product.Quantity = quantityToAdd;
 
-                ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
+                await ShoppingCartServiceProxy.Current.AddOrUpdateCart(product, CartId);
                 RefreshCartPrice();
                 RefreshProducts();
             }
@@ -76,21 +76,23 @@ namespace Shop.MAUI.ViewModels
 
         public void RefreshProducts()
         {
+            InventoryServiceProxy.Current.Get();
             NotifyPropertyChanged(nameof(Products));
         }
 
         private int CartCount { get; set; }
         public void RefreshCarts()
         {
-            if(CartCount < ShoppingCartList.Count)
+            ShoppingCartServiceProxy.Current.Get();
+            if (CartCount < ShoppingCartList.Count)
             {
                 NotifyPropertyChanged(nameof(ShoppingCartList));
                 CartCount = ShoppingCartList.Count;
-            }
-            
+            }   
         }
         public void RefreshCartPrice()
         {
+            ShoppingCartServiceProxy.Current.Get();
             NotifyPropertyChanged(nameof(CartPrice));
         }
 
