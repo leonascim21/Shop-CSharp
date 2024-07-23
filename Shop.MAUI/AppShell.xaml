@@ -29,4 +29,7 @@
     <ShellContent
         ContentTemplate="{DataTemplate views:ConfigurationView}"
         Route="ConfigurationPage" />
+    <ShellContent
+        ContentTemplate="{DataTemplate views:ImportView}"
+        Route="ImportPage" />
 </Shell>

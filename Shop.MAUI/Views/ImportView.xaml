@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Shop.MAUI.Views.ImportView">
+    <VerticalStackLayout
+        Padding="100"
+        Spacing="20">
+
+        <Label Text="Import Products CSV"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                FontAttributes="Bold"
+                FontSize="30"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Padding="5"
+                   Text="Upload File:" 
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   TextColor="Black"/>
+        </Grid>
+
+        <Button Text="Save" 
+                MaximumWidthRequest="200" 
+                BackgroundColor="#69C7B8"
+                TextColor="Black"/>
+
+        <Button Text="Back"
+                Clicked="GoToInventoryPage"
+                MaximumWidthRequest="200" 
+                BackgroundColor="#69C7B8"
+                TextColor="Black"/>
+
+    </VerticalStackLayout>
+</ContentPage>
