@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using Shop.MAUI.Views;
 using Shop_CSharp.Models;
 using Shop.Library.Services;
+using CsvHelper;
+using CsvHelper.Configuration;
+using System.Globalization;
 
 namespace Shop.MAUI.ViewModels
 {
@@ -39,13 +42,55 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
-        public async Task<bool> ImportProducts()
+        public async Task<List<Product>> ImportProducts()
         {
             var fileResult = await FilePicker.Default.PickAsync();
-            if (fileResult == null || !fileResult.FileName.EndsWith(".csv")) return false;
-            
-            
-            return true;
+            if (fileResult == null || !fileResult.FileName.EndsWith(".csv")) return new List<Product>();
+
+            using (var reader = new StreamReader(fileResult.FullPath))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ",",
+                HasHeaderRecord = true,
+            }))
+            {
+
+                var products = new List<Product>();
+                try
+                {
+                    csv.Read();
+                    csv.ReadHeader();
+                    while (csv.Read())
+                    {
+                        var product = new Product
+                        {
+                            Id = csv.GetField<int>("Id"),
+                            Name = csv.GetField("Name") ?? string.Empty,
+                            Description = csv.GetField("Description") ?? string.Empty,
+                            Price = csv.GetField<decimal?>("Price") ?? 0m,
+                            Quantity = csv.GetField<int?>("Quantity") ?? 0,
+                            Markdown = csv.GetField<double?>("Markdown") ?? 0,
+                            Bogo = csv.GetField<bool?>("Bogo") ?? false
+                        };
+                        products.Add(product);
+                    }
+                }
+                catch (Exception e) 
+                {
+                    foreach (Product p in products)
+                    {
+                        await InventoryServiceProxy.Current.AddOrUpdate(p);
+                    }
+                    return products; 
+                }
+                
+                foreach (Product p in products)
+                {
+                    await InventoryServiceProxy.Current.AddOrUpdate(p);
+                }
+
+                return products;
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
