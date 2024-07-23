@@ -42,6 +42,9 @@ namespace Shop.MAUI.ViewModels
         public async Task<bool> ImportProducts()
         {
             var fileResult = await FilePicker.Default.PickAsync();
+            if (fileResult == null || !fileResult.FileName.EndsWith(".csv")) return false;
+            
+            
             return true;
         }
 
