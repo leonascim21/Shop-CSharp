@@ -44,6 +44,13 @@
                     MaximumHeightRequest="50"
                     MaximumWidthRequest="50"
                     HorizontalOptions="End"/>
+                <Button Text="Import From CSV"
+                        Clicked="GoToImportPage"
+                        FontSize="12"
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        BackgroundColor="#69C7B8"
+                        MaximumHeightRequest="50"/>
             </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding Products}">
                 <CollectionView.ItemsLayout>
