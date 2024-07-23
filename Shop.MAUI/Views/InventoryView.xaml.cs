@@ -30,9 +30,10 @@ public partial class InventoryView : ContentPage
         ProductViewModel? product = (sender as ImageButton)?.CommandParameter as ProductViewModel;
         Shell.Current.GoToAsync($"//ProductPage?productId={product.Model.Id}");
     }
-    private void GoToImportPage(object sender, EventArgs e)
+    private async void OpenFilePicker(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync($"//ImportPage");
+        await (BindingContext as InventoryViewModel).ImportProducts();
+        (BindingContext as InventoryViewModel).Refresh();
     }
 
 

@@ -39,6 +39,12 @@ namespace Shop.MAUI.ViewModels
             }
         }
 
+        public async Task<bool> ImportProducts()
+        {
+            var fileResult = await FilePicker.Default.PickAsync();
+            return true;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

@@ -45,7 +45,7 @@
                     MaximumWidthRequest="50"
                     HorizontalOptions="End"/>
                 <Button Text="Import From CSV"
-                        Clicked="GoToImportPage"
+                        Clicked="OpenFilePicker"
                         FontSize="12"
                         FontAttributes="Bold"
                         TextColor="Black"
