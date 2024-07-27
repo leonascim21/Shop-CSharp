@@ -27,7 +27,7 @@ namespace Shop.API.EC
             ShoppingCart? Cart = FakeDatabase.ShoppingCarts.FirstOrDefault(c => c.Id == CartId);
             if (Cart == null) return;
 
-            Product? inventoryProduct = FakeDatabase.Products.FirstOrDefault(p => p.Id == product.Id);
+            Product? inventoryProduct = new DbContext().GetProduct(product.Id);
             if (inventoryProduct == null) return;
             if (inventoryProduct.Quantity < product.Quantity) return;
 
@@ -36,6 +36,7 @@ namespace Shop.API.EC
             {
                 existingProduct.Quantity += product.Quantity;
                 inventoryProduct.Quantity -= product.Quantity;
+                new DbContext().UpdateProduct(inventoryProduct);
                 return;
             }
 
@@ -51,9 +52,12 @@ namespace Shop.API.EC
             Product? existingProduct = Cart.Contents?.FirstOrDefault(p => p.Id == ProductId);
             if (existingProduct == null) { return; }
 
-            Product? inventoryProduct = FakeDatabase.Products.FirstOrDefault(p => p.Id == ProductId);
-            if (inventoryProduct != null) { inventoryProduct.Quantity += existingProduct.Quantity; }
-
+            Product? inventoryProduct = new DbContext().GetProduct(ProductId);
+            if (inventoryProduct != null) 
+            { 
+                inventoryProduct.Quantity += existingProduct.Quantity;
+                new DbContext().UpdateProduct(inventoryProduct);
+            }
             Cart.Contents?.Remove(existingProduct);
         }
         public async void Checkout(int CartId)
