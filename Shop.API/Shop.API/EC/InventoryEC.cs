@@ -13,7 +13,7 @@ namespace Shop.API.EC
 
         public async Task<IEnumerable<Product>> Get()
         {
-            return FakeDatabase.Products; 
+            return new DbContext().GetProducts(); 
         }
 
         public async Task<Product> Post(Product p)
@@ -27,20 +27,11 @@ namespace Shop.API.EC
 
             if (isAdd)
             {
-                FakeDatabase.Products.Add(p);
+                new DbContext().AddProduct(p);
             }
             else
             {
-                Product? ProductToEdit = FakeDatabase.Products.FirstOrDefault(prod => prod.Id == p.Id);
-                if (ProductToEdit != null)
-                {
-                    ProductToEdit.Name = p.Name;
-                    ProductToEdit.Description = p.Description;
-                    ProductToEdit.Price = p.Price;
-                    ProductToEdit.Quantity = p.Quantity;
-                    ProductToEdit.Markdown = p.Markdown;
-                    ProductToEdit.Bogo = p.Bogo;
-                }
+                new DbContext().UpdateProduct(p);
             }
             return p;
         }
@@ -50,7 +41,7 @@ namespace Shop.API.EC
             Product? ProductToDelete = FakeDatabase.Products.FirstOrDefault(prod => prod.Id == Id);
             if(ProductToDelete != null)
             {
-                FakeDatabase.Products.Remove(ProductToDelete);
+                new DbContext().DeleteProduct(Id); ;
             }
             return ProductToDelete ?? new Product();
         }
