@@ -42,6 +42,7 @@ namespace Shop.API.EC
 
             Cart.Contents?.Add(product);
             inventoryProduct.Quantity -= product.Quantity;
+            new DbContext().UpdateProduct(inventoryProduct);
         }
 
         public async void RemoveFromCart(int CartId, int ProductId)
