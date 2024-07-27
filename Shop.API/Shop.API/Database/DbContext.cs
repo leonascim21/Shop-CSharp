@@ -112,6 +112,43 @@ namespace Shop.API.Database
 
             return products;
         }
+
+        public Product GetProduct(int productId)
+        {
+            Product product = new Product();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    var sql = $"SELECT Id, Name, Description, Quantity, Price, Markdown, Bogo FROM PRODUCTS WHERE Id = {productId}";
+                    command.CommandText = sql;
+                    command.CommandType = CommandType.Text;
+
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            product = new Product
+                            {
+                                Id = reader.GetInt32(0),
+                                Name = reader.GetString(1),
+                                Description = reader.GetString(2),
+                                Quantity = reader.GetInt32(3),
+                                Price = reader.GetDecimal(4),
+                                Markdown = reader.GetDouble(5),
+                                Bogo = reader.GetBoolean(6)
+                            };
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+
+            return product;
+        }
+
     }  
 }
 
